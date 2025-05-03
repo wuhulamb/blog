@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-05-03T18:05:30+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">L校资源预约系统渗透测试</title><link href="/blog/p/hack-in-lzu-cgyy/" rel="alternate" type="text/html" title="L校资源预约系统渗透测试" /><published>2025-04-26T10:48:00+08:00</published><updated>2025-04-26T10:48:00+08:00</updated><id>/blog/p/hack-in-lzu-cgyy</id><content type="html" xml:base="/blog/p/hack-in-lzu-cgyy/"><![CDATA[<blockquote>
+  <p>Kein System ist sicher. （没有绝对安全的系统）</p>
+</blockquote>
+
+<p>自笔者上次发现<a href="https://wuhulamb.pages.dev/blog/2024/06/23/first-hack-lzu-library/" target="_blank">L校图书馆毕业纪念网站的安全问题</a>后，很长时间都没有什么新的发现了…… 直到某天，ZZR在L校的APP上发现资源预约系统可以查看所有在校师生的姓名、工号等敏感信息，然后将这一发现分享给了我，于是一个种子播下了.</p>
+
+<h2 id="初次尝试">初次尝试</h2>
+
+<p>我找到了该资源预约系统的网页端，F12 打开开发者工具，找到相关数据的请求包.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i0vl8a9m5cj31fj0suwxk.jpg" alt="lzu-cgyy-index.jpg" />
+<figcaption>简单测试发现网页数据是该post请求返回的</figcaption>
+</figure>
+
+<p>首先是这个post请求的url最后的参数非常奇怪，再点击response会发现不是网页中显示的数据，而是很长的一串字符，request同样是一串很长的字符。笔者非常果断地放弃了……</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx3.sinaimg.cn/large/008kbRJbly1i0vl8ab4i1j31fj0su7m5.jpg" alt="lzu-cgyy-response.jpg" />
+<figcaption>奇怪的response</figcaption>
+</figure>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbly1i0vl8ac8oaj31fj0sutqm.jpg" alt="lzu-cgyy-request.jpg" />
+<figcaption>奇怪的request</figcaption>
+</figure>
+
+<h2 id="two-thousand-years-later-">Two thousand years later …</h2>
+
+<p>某天，WJY说总是预约不上羽毛球场，问我能不能写一个一键预约脚本用于该系统，我说有难度……</p>
+
+<p>回到宿舍，我又打开了那个网站，因为没有思路，然后又默默地❌掉了……</p>
+
+<hr />
+
+<p>前面铺垫这么久，就是想突出一下这次渗透测试的难度嘿嘿。下面开始正文！</p>
+
+<h2 id="存在加密">存在加密</h2>
+
+<p>网页显示的数据一定就是post请求的response，而显示的结果是明文，说明一定存在解密过程，而且一定是在前端解密的（后端解密就没有加密的必要了😅），那一定就可以找到解密部分的代码！</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx3.sinaimg.cn/large/008kbRJbly1i0vl8a11tgj31fg0swqep.jpg" alt="lzu-cgyy-encrypt.jpg" />
+<figcaption>搜索encrypt，发现可疑代码</figcaption>
+</figure>
+
+<p>笔者在源代码搜索栏中尝试了 <code class="language-plaintext highlighter-rouge">crypto</code> , <code class="language-plaintext highlighter-rouge">encrypt</code> 等关键字，定位加密代码部分。搜不到也可以将代码文件逐个点一遍，关键是要坚信前端一定有解密的代码.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i0vl8a88yij31fh0su7lm.jpg" alt="lzu-cgyy-encrypt-function.jpg" />
+<figcaption>发现解密代码</figcaption>
+</figure>
+
+<p>果然，没花多长时间，笔者就找到了解密的代码，在浏览器控制台运行decodeResult函数，成功解密！</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i0vl8au702j31fg0su7wi.jpg" alt="lzu-cgyy-decode-response.jpg" />
+<figcaption>成功解密post请求的response数据</figcaption>
+</figure>
+
+<p>这时候，自然会用这个函数试一下解密requset的数据.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx3.sinaimg.cn/large/008kbRJbly1i0vl8au0awj31fh0sv7wi.jpg" alt="lzu-cgyy-decode-request.jpg" />
+<figcaption>成功解密post请求的request数据</figcaption>
+</figure>
+
+<h2 id="post请求的url参数是个什么鬼">post请求的url参数是个什么鬼？</h2>
+
+<p>笔者第一次遇到这么奇怪的url参数，延续上面的想法，起初以为这个参数也是加密后的结果，可是死活找不到加密的代码，按照上面加密过程反向解密也不行，然后就卡在这里了……</p>
+
+<p>不过，post请求是从前端发到后端的，意味着url也是前端生成的，那么一定能在前端找到生成它的代码.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbly1i0vl8asixqj31fj0sve81.jpg" alt="lzu-cgyy-stack-trace.jpg" />
+<figcaption>post请求的生成堆栈</figcaption>
+</figure>
+
+<p>在AI君的帮助下，笔者一点一点读完了这些打包混淆的代码，找到了一个关键的代码片段.</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx4.sinaimg.cn/large/008kbRJbly1i0vl8a8fnuj31fj0swdus.jpg" alt="lzu-cgyy-key-code.jpg" />
+<figcaption>发出post请求的关键代码</figcaption>
+</figure>
+
+<p>经调试，post请求的url在发出时，没有后面的奇怪参数，且request也没有加密，而且笔者第二天发出相同request请求却得到不同的url参数，于是猜测这个url参数是动态生成的，可能是依据token和cookie生成的。（弄清这个url参数真的是花了很长时间，最后是在控制台构造了一个post请求发出后成功返回了数据才确认了这个请求过程）</p>
+
+<p>（所以实际上post请求的url就是 <code class="language-plaintext highlighter-rouge">https://example.com/hzsun-resm/sys/user/queryUserByConfitionPage</code> ，请求头加上 <code class="language-plaintext highlighter-rouge">X-Access-Token</code> 参数，结合请求头的cookie发出post请求时，浏览器Network显示的url就自动加上了那个奇怪的令牌参数）</p>
+
+<h2 id="爬取数据">爬取数据</h2>
+
+<p>最后就是快乐地爬取数据环节.（当然是用控制台爬取，浏览器控制台自动处理请求头带上cookie真的太方便了）</p>
+
+<p>一开始笔者按照常规爬取思路，准备按页爬取保存，后来发现浏览器每次保存需手动点击确认，就将每页爬取的数据合并再一次保存下来.</p>
+
+<h2 id="学到了什么">学到了什么</h2>
+
+<ul>
+  <li>浏览器控制台爬数据不要太爽，javascript值得一学！</li>
+  <li>感觉Google Chrome的Console和Debugger比Firefox要正常<del>，也有可能是我误点了什么</del>（同样的post请求构造，Firefox返回400，Chrome正常返回response数据；起先Firefox也是正常返回，后来就一直返回400，我找了好长时间原因，最后在Chrome上发post请求完全正常）</li>
+  <li>浏览器Private窗口操作，关闭所有Private窗口后，所有缓存都会被清除</li>
+  <li>AI君真是最强搭档，本次渗透的代码有95%均为AI君完成，剩下5%是笔者细致入微的提问和耐心的等待（什么时候deepseek不再出现服务器繁忙啊啊啊）</li>
+</ul>
+
+<h2 id="浏览器post请求显示的request为什么是加密的">（❓）浏览器post请求显示的request为什么是加密的</h2>
+
+<p>post请求发出后，前端的request拦截函数做的加密（笔者水平有限，猜测过程是这样的）</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx4.sinaimg.cn/large/008kbRJbly1i0vl8asramj31fh0swb29.jpg" alt="lzu-cgyy-interceptors-stack-trace.jpg" />
+<figcaption>post请求生成堆栈中的request拦截函数</figcaption>
+</figure>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbly1i0vl8adimzj31fi0sw7ko.jpg" alt="lzu-cgyy-interceptors.jpg" />
+<figcaption>request拦截函数代码</figcaption>
+</figure>
+
+<h2 id="附录js代码">（附录）js代码</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://example.com/hzsun-resm/sys/user/queryUserByConfitionPage</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">EXAMPLEopeyJ0e02jfXAiOiJKV1QixxLCJhbGciOiJIUzIpjafds1NiJ9.eyJleHAiOjE3N1lIjoiMzIwMjEw9fjadsOTQ4MjUxIn0.24XCcXb5HZJ1Rrw4YTYC4w1Qrgv3AQ</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="k">async</span> <span class="kd">function</span> <span class="nf">runBrowser</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">total</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span> <span class="c1">// 根据实际情况确认总页数</span>
+  <span class="kd">const</span> <span class="nx">batchSize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">allData</span> <span class="o">=</span> <span class="p">[];</span> <span class="c1">// 存储所有响应数据</span>
+
+  <span class="k">async</span> <span class="kd">function</span> <span class="nf">sendRequest</span><span class="p">(</span><span class="nx">offset</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">payload</span> <span class="o">=</span> <span class="p">{</span> 
+      <span class="dl">"</span><span class="s2">limit</span><span class="dl">"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">offset</span><span class="dl">"</span><span class="p">:</span> <span class="nx">offset</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">userIdList</span><span class="dl">"</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="dl">"</span><span class="s2">excludeRoleId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">roleId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">orgId</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">realname</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">username</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span> 
+      <span class="dl">"</span><span class="s2">userTypeCode</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span>
+    <span class="p">};</span>
+
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> 
+        <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">X-Access-Token</span><span class="dl">'</span><span class="p">:</span> <span class="nx">token</span>
+        <span class="p">},</span>
+        <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">payload</span><span class="p">)</span>
+      <span class="p">});</span>
+
+      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">response</span><span class="p">.</span><span class="nx">ok</span><span class="p">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span><span class="s2">`HTTP错误! 状态码: </span><span class="p">${</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+      
+      <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nf">json</span><span class="p">();</span>
+      <span class="nx">allData</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nf">decodeResult</span><span class="p">(</span><span class="nx">data</span><span class="p">)[</span><span class="dl">'</span><span class="s1">responseResult</span><span class="dl">'</span><span class="p">][</span><span class="dl">'</span><span class="s1">rows</span><span class="dl">'</span><span class="p">]);</span> <span class="c1">// 将响应数据存入数组</span>
+
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="s2">`Offset </span><span class="p">${</span><span class="nx">offset</span><span class="p">}</span><span class="s2"> 失败:`</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 分批发送请求</span>
+  <span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">total</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="nx">batchSize</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">promises</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">batchSize</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">+</span> <span class="nx">j</span> <span class="o">&lt;=</span> <span class="nx">total</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">promises</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nf">sendRequest</span><span class="p">(</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">j</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">await</span> <span class="nb">Promise</span><span class="p">.</span><span class="nf">all</span><span class="p">(</span><span class="nx">promises</span><span class="p">);</span>
+    <span class="k">await</span> <span class="k">new</span> <span class="nc">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span> <span class="nf">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span><span class="p">));</span> <span class="c1">// 批次间隔</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 创建并下载合并后的文件</span>
+  <span class="kd">const</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Blob</span><span class="p">([</span><span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">allData</span><span class="p">)],</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span> <span class="p">});</span>
+  <span class="kd">const</span> <span class="nx">downloadUrl</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nf">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">downloadUrl</span><span class="p">;</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">hack-data.json</span><span class="dl">'</span><span class="p">;</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+  <span class="nx">link</span><span class="p">.</span><span class="nf">click</span><span class="p">();</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+  <span class="nx">URL</span><span class="p">.</span><span class="nf">revokeObjectURL</span><span class="p">(</span><span class="nx">downloadUrl</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 启动抓取</span>
+<span class="nf">runBrowser</span><span class="p">();</span>
+</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[Kein System ist sicher. （没有绝对安全的系统）]]></summary></entry><entry><title type="html">win10虚拟机上安装ArcGIS10.8.2（找资源篇）</title><link href="/blog/p/install-arcgis10.8.2-on-win10-vm/" rel="alternate" type="text/html" title="win10虚拟机上安装ArcGIS10.8.2（找资源篇）" /><published>2025-03-03T20:05:00+08:00</published><updated>2025-03-03T20:05:00+08:00</updated><id>/blog/p/install-arcgis10.8.2-on-win10-vm</id><content type="html" xml:base="/blog/p/install-arcgis10.8.2-on-win10-vm/"><![CDATA[<blockquote>
+  <p>前面<a href="/blog/p/install-ubuntu-on-my-laptop-mistakenly/">将Ubuntu误装到笔记本硬盘</a>的影响还在继续…</p>
+</blockquote>
+
+<p>为了能够顺利毕业，笔者需要一款像ArcGIS那样的软件，Linux倒是有一个很接近ArcGIS的平替——QGIS。但是啊，最近开始做图的时候笔者发现，QGIS的栅格不支持Jenks自然断裂点分类，这还不是最关键的，最关键的是QGIS的配色和ArcGIS的完全不同，因此习惯了ArcGIS的老师一看到我做的图估计多少有些不适应（笔者也不是很适应），所以思前想后笔者还是决定安装windows虚拟机，再在虚拟机上安装ArcGIS。（ArcGIS只有windows版本）</p>
+
+<p>好消息是VMware Workstation免费了！坏消息是windows镜像及激活方式、ArcGIS软件及激活方式都得自己找（&gt;﹏&lt;）</p>
+
+<p>本文就简单记录一下笔者如何<del>快速</del>（两天）找到并成功安装这些资源的。</p>
+
+<p>首先，由于笔者喜欢看博客，自然会关注几个水平很高的大佬，然后某天又会不满足于博客（大佬<del>更新博客速度普遍较慢</del>不屑于更新博客），于是乎想看看大佬除了博客还在哪些平台比较活跃（没错那天笔者很闲！）按照这样的方法，笔者找到了<a href="https://ibug.io/" target="_blank">ibug</a>大佬的另一个<a href="https://wiki.ibugone.com" target="_blank">基地</a>。这是大佬的个人知识库，信息量很大，笔者一下来了兴趣，开始肆意搜刮。windows镜像就是在<a href="https://wiki.ibugone.com/software/microsoft/" target="_blank">这里</a>找到的。（大佬还是大佬，还很贴心地给出了激活方式 ｡^‿^｡ ）</p>
+
+<p>那么，只剩下ArcGIS了。考验笔者资源搜索的时候到了！</p>
+
+<p>笔者最初使用Google搜索 <code class="language-plaintext highlighter-rouge">arcgis crack download</code> 关键字得到的结果并不理想（有几个极具诱惑性的国外大学链接使笔者以为已经找到了，细看才知道需要学校账号密码）。后来笔者借鉴ibug大佬在windows镜像搜索的方法，使用Google搜索ArcGIS软件包的名称（例如 <code class="language-plaintext highlighter-rouge">ArcGIS_Desktop_1082_180378.exe</code> ），找到了<a href="https://geouitm.uitm.edu.my/sug/software/" target="_blank">ArcGIS的软件包下载地址</a>（没错下载地址还是大学网站，不过可以直接下载）。至于ArcGIS软件包的名字是怎么找到的，就是八仙过海，各显神通了。笔者最初是在YouTube的一个视频中找到的。</p>
+
+<p>最后就是激活方式。ArcGIS10.8.2（非Pro）和ArcGIS Pro的激活方式不同。相对而言，ArcGIS非Pro版激活方式更加成熟，也更容易找到，操作方式似乎也更简单（不需要额外再安装windows的.NET巴拉巴拉）。所以笔者选择ArcGIS10.8.2（似乎是ArcGIS非Pro的最后一个版本）。然后就还是在Google中搜索 <code class="language-plaintext highlighter-rouge">ArcGIS10.8 crack AfCore.dll</code> ，加上 <code class="language-plaintext highlighter-rouge">AfCore.dll</code> 是因为笔者在YouTube的视频中看到了破解过程就是将找来的 <code class="language-plaintext highlighter-rouge">AfCore.dll</code> 替换ArcGIS已安装的 <code class="language-plaintext highlighter-rouge">AfCore.dll</code> 。在一番寻找下笔者又找到了<a href="https://www.bilibili.com/opus/947508143883026435" target="_blank">B站的一个破解ArcGIS10.8.2的视频和文章</a>，最后通过关注公众号获得Crack的 <code class="language-plaintext highlighter-rouge">AfCore.dll</code> 文件。（当然也有ArcGIS的安装包，不过笔者之前已经找到了，就不管了）</p>
+
+<p>搜索能力就像解决问题的能力，并非一天就能锻炼出来，但也不必灰心，笔者以前也缺少这样的能力，在经过一次次难题的磨练下，就逐渐培养出来了。当下各种GPT迅速发展，节约了许多以前使用浏览器搜索再一个个点进去看的时间，利用好这些工具将使我们的学习效率、解决问题的能力有很大的提升，但同时要小心不要过度依赖这些工具，因为它们在简化过程的同时也屏蔽了过程。</p>
+
+<p>最后，附上搜索引擎排序：Google » Bing » <del>Baidu</del></p>
+
+<p>最后的最后，笔者安装的windows虚拟机版本为 <code class="language-plaintext highlighter-rouge">zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.iso</code> （虽然ArcGIS非Pro版可以在win7上跑起来，虽然似乎win7对电脑性能要求更低，虽然有很多人喜欢win7，但是我的朋友，请忍住一时的冲动，相信我，还是安装win10吧）</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[前面将Ubuntu误装到笔记本硬盘的影响还在继续…]]></summary></entry><entry><title type="html">Linux版WPS修补指南</title><link href="/blog/p/small-problems-of-wps-for-linux/" rel="alternate" type="text/html" title="Linux版WPS修补指南" /><published>2025-02-07T15:33:00+08:00</published><updated>2025-02-07T15:33:00+08:00</updated><id>/blog/p/small-problems-of-wps-for-linux</id><content type="html" xml:base="/blog/p/small-problems-of-wps-for-linux/"><![CDATA[<p>自从<a href="/blog/p/install-ubuntu-on-my-laptop-mistakenly/">误把Ubuntu装进电脑硬盘</a>后，笔者开始了神奇的Linux之旅。接着不可避免要寻找office办公三件套的替代软件，笔者最先安装了LibreOffice，打开.docx文档和Word布局不一致，于是又寻找其他替代软件，然后就找到了WPS for Linux。使用WPS打开.docx文件和Word布局一致，且速度很快（比LibreOffice快一点），而且免费无广告！（使用Windows版WPS的家人们，V我50解锁全部功能免广告🤑）</p>
+
+<p>虽然Linux版WPS是Office的最佳平替，但是也会存在一些小问题。本文将列出笔者使用过程中遇到的问题，并给出解决方案（笔者的电脑是x86_64架构，系统为Ubuntu 24.04）</p>
+
+<h2 id="0x00-缺少字体">0x00 缺少字体</h2>
+
+<p>因为存在字体版权问题，所以WPS for Linux并没有附带字体文件，而Ubuntu自带的字体都是用惯了Windows的B从未听说过的开源字体。当B打开老师同学发给ta的文件时，自然会出现显示异常的情况</p>
+
+<p>解决办法详见 👉 <a href="/blog/p/first-day-of-using-ubuntu/">使用Ubuntu的第一天是装…字体？</a></p>
+
+<h2 id="0x01-导出pdf失败">0x01 导出PDF失败</h2>
+
+<p>WPS更新缓慢，PDF导出功能使用的是libtiff.so.5库（Ubuntu 24.04安装的是libtiff.so.6），因为libtiff.so.6向下兼容，所以直接加一个symbolic完事</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.6 /usr/lib/x86_64-linux-gnu/libtiff.so.5
+</code></pre></div></div>
+
+<p>参考WPS社区讨论：<a href="https://bbs.wps.cn/topic/7777" target="_blank">Linux环境下不能输出PDF</a></p>
+
+<h2 id="0x02-中文字体加粗显示异常">0x02 中文字体加粗显示异常</h2>
+
+<p>同样是WPS更不上组件库更新，解决办法是下载旧版libfreetype（应该也可以通过降低libfreetype版本解决，不过考虑到可能存在版本兼容依赖问题，且下载的文件是放在WPS自己的路径下，不会影响其他程序运行，笔者选择直接下载）</p>
+
+<p>下载地址： <code class="language-plaintext highlighter-rouge">https://packages.debian.org/bookworm/libfreetype6</code> 。如果是x86_64架构的Debian/Ubuntu系统，下载 <strong>libfreetype6_2.12.1+dfsg-5+deb12u3_amd64.deb</strong></p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir libfreetype6
+$ dpkg-deb -X libfreetype6_2.12.1+dfsg-5+deb12u3_amd64.deb libfreetype6
+$ sudo cp libfreetype6/usr/lib/x86_64-linux-gnu/libfreetype.so.6.18.3 /opt/kingsoft/wps-office/office6/
+$ sudo ln -s /opt/kingsoft/wps-office/office6/libfreetype.so.6.18.3 /opt/kingsoft/wps-office/office6/libfreetype.so.6
+</code></pre></div></div>
+
+<p>参考WPS社区讨论：<a href="https://bbs.wps.cn/topic/3137" target="_blank">WPS for Linux字体加粗问题</a></p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[自从误把Ubuntu装进电脑硬盘后，笔者开始了神奇的Linux之旅。接着不可避免要寻找office办公三件套的替代软件，笔者最先安装了LibreOffice，打开.docx文档和Word布局不一致，于是又寻找其他替代软件，然后就找到了WPS for Linux。使用WPS打开.docx文件和Word布局一致，且速度很快（比LibreOffice快一点），而且免费无广告！（使用Windows版WPS的家人们，V我50解锁全部功能免广告🤑）]]></summary></entry><entry><title type="html">Linux使用指定字体显示汉字</title><link href="/blog/p/make-chinese-display-with-specified-font-in-linux/" rel="alternate" type="text/html" title="Linux使用指定字体显示汉字" /><published>2025-01-31T22:19:00+08:00</published><updated>2025-01-31T22:19:00+08:00</updated><id>/blog/p/make-chinese-display-with-specified-font-in-linux</id><content type="html" xml:base="/blog/p/make-chinese-display-with-specified-font-in-linux/"><![CDATA[<h2 id="正文">正文</h2>
+
+<p>今天在知乎上刷到<a href="https://www.zhihu.com/question/32058777/answer/3561707776" target="_blank">一篇介绍字体的文章</a>，于是忍不住想解决一下Ubuntu系统中文字体显示异样的问题。</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbgy1hy7f3qfc14j30th0gstbc.jpg" alt="chinese-display-with-default-font.jpg" />
+<figcaption>系统默认字体显示中文有异样</figcaption>
+</figure>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/fonts/fonts.conf</code> 配置文件中可以找到 <code class="language-plaintext highlighter-rouge">mono</code> , <code class="language-plaintext highlighter-rouge">sans</code> , <code class="language-plaintext highlighter-rouge">system-ui</code> 情境，结合 <code class="language-plaintext highlighter-rouge">fc-match</code> 命令可以查看对应情境使用的默认字体</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx4.sinaimg.cn/large/008kbRJbgy1hy7f3qf4xyj30r704pgn2.jpg" alt="ubuntu-default-sans.jpg" />
+<figcaption>Ubuntu系统默认使用Noto Sans Regular作为非衬线字体</figcaption>
+</figure>
+
+<p>直接替换Noto Sans Regular会破坏原生应用的布局显示，而我只是想在显示中文的时候使用自己定义的字体（Microsoft YaHei，Windows用的还是太多了），所以最后解决办法是创建 <code class="language-plaintext highlighter-rouge">~/.config/fontconfig/fonts.conf</code> 文件。下面是文件内容：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE fontconfig SYSTEM "fonts.dtd"&gt;
+&lt;fontconfig&gt;
+    &lt;!-- 设置微软雅黑为回退字体 --&gt;
+    &lt;match&gt;
+        &lt;test name="family"&gt;
+            &lt;string&gt;sans-serif&lt;/string&gt;
+        &lt;/test&gt;
+        &lt;edit name="family" mode="append" binding="strong"&gt;
+            &lt;string&gt;Microsoft YaHei&lt;/string&gt;
+        &lt;/edit&gt;
+    &lt;/match&gt;
+&lt;/fontconfig&gt;
+</code></pre></div></div>
+
+<h2 id="彩蛋">彩蛋</h2>
+
+<p><code class="language-plaintext highlighter-rouge">gsettings</code> 是GNOME的配置程序，使用它可以<del>方便</del>地配置和GNOME相关的所有东西，当然也可以配置字体：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gsettings get org.gnome.desktop.interface font-name    # 查看桌面字体
+gsettings set org.gnome.desktop.interface font-name 'Microsoft YaHei 11'  # 设置桌面字体为微软雅黑 11号字体
+gsettings reset org.gnome.desktop.interface font-name  # 重置回原来的字体
+</code></pre></div></div>
+
+<p>更多用法参见 <code class="language-plaintext highlighter-rouge">man gsettings</code></p>
+
+<p>然而其实 <code class="language-plaintext highlighter-rouge">gsettings</code> 配置的字体只是GNOME程序的界面，相较之下上文使用fontconfig配置文件的方法更加彻底，所有使用fontconfig的程序都会遵守该配置文件</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[正文]]></summary></entry><entry><title type="html">ROCKY</title><link href="/blog/p/rocky/" rel="alternate" type="text/html" title="ROCKY" /><published>2025-01-24T09:32:00+08:00</published><updated>2025-01-24T09:32:00+08:00</updated><id>/blog/p/rocky</id><content type="html" xml:base="/blog/p/rocky/"><![CDATA[<p>洛奇是一个拳击手，我没有看过他的比赛，但我看过他的电影。我很喜欢这个家伙。</p>
+
+<p><em>ROCKY</em> 一共有六部电影，很受大家喜欢。我只看了前四部，感觉都挺不错的。推荐观看前两部，前两部比较经典。</p>
+
+<p>其实像这种励志电影，大家在看之前就大概知道情节了。 <em>ROCKY</em> 的这几部电影的故事情节设定都是类似的，可是也不妨碍我们去看，毕竟看励志电影也不是为了看情节对吧。（我是 <em>ROCKY</em> 主题曲 <a href="https://www.bilibili.com/video/BV11a411c7jN/" target="_blank"><i>Gonna Fly Now</i></a> 带入的）</p>
+
+<p><em>ROCKY</em> 除了拼搏的 <strong>HARD</strong> ，还有一个细节很真实。当洛奇下定决心迎接挑战参加比赛，他每天凌晨四点起床，喝下五个生鸡蛋，然后出门跑步，而当他跑到了费城最高的地方（费城艺术博物馆）时，他会像个孩子一样开心地跳起来，他会大喊： <strong>I made it! I made it!</strong></p>
+
+<p>洛奇和我们一样，都有难以坚持下去的时候，也许那句在别人眼中不算什么的 <strong>I made it!</strong> 却正是他继续前进的支持。（对了，洛奇在大喊 I made it! 前还会先喊一声 <strong>Adrian!</strong> [手动狗头]）</p>
+
+<p>再过两天就要过年了，提前祝大家新年快乐！</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[洛奇是一个拳击手，我没有看过他的比赛，但我看过他的电影。我很喜欢这个家伙。]]></summary></entry><entry><title type="html">ln创建链接请使用绝对路径！！！</title><link href="/blog/p/better-use-absolute-path-when-creating-links/" rel="alternate" type="text/html" title="ln创建链接请使用绝对路径！！！" /><published>2025-01-17T12:08:00+08:00</published><updated>2025-01-17T12:08:00+08:00</updated><id>/blog/p/better-use-absolute-path-when-creating-links</id><content type="html" xml:base="/blog/p/better-use-absolute-path-when-creating-links/"><![CDATA[<p>链接是个好东西，可以把原文件link到一个链接上，通过链接可以读取原文件，也可以修改原文件。链接可以同步原文件的改动，即链接和原文件内容始终相同。以上的功能不区分软链接还是硬链接，是链接的基本属性。</p>
+
+<h2 id="硬链接">硬链接</h2>
+
+<p>硬链接创建后，像是copy了原文件，地位和原文件相同，原文件被删除链接文件依然有内容，不同于copy的地方是硬链接是一个指向原文件在磁盘中地址的索引（即硬链接占用的磁盘空间是作为链接的空间，不是文件的空间）</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln /absolute/path/to/target /absolute/path/to/link
+</code></pre></div></div>
+
+<figure>
+<figcaption>target是原文件，link是要创建的链接文件</figcaption>
+</figure>
+
+<p>创建完链接，可以使用 <code class="language-plaintext highlighter-rouge">ls -l</code> 命令查看，如果正确创建（使用 <code class="language-plaintext highlighter-rouge">vim</code> 打开链接，如果是空白则创建失败），会看到链接文件大小和原文件大小相同（ls查看的是数据在磁盘的大小，原文件和硬链接都是一个指向磁盘数据的索引）</p>
+
+<h2 id="软链接">软链接</h2>
+
+<p>软链接像是windows桌面的快捷方式，作用是指向原文件，原文件被删除则链接文件失效。（与硬链接的区别是，软链接不指向磁盘中的数据，而是指向原文件）</p>
+
+<blockquote>
+  <p>Linux 中 file 是一个指向磁盘数据的索引， <code class="language-plaintext highlighter-rouge">rm file</code> 实际上只是删除了索引，并没有真正清空磁盘中的数据，所以才会有使用xx软件恢复误删数据的可能.</p>
+</blockquote>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s /absolute/path/to/target /absolute/path/to/link
+</code></pre></div></div>
+
+<figure>
+<figcaption>target是原文件，link是要创建的链接文件</figcaption> 
+</figure>
+
+<p>软链接的大小很小，同样可以用上述方法查看</p>
+
+<h2 id="请使用绝对路径创建链接">请使用绝对路径创建链接</h2>
+
+<p>如果 <code class="language-plaintext highlighter-rouge">ln</code> 命令创建链接失败了，那么请使用<strong>绝对路径</strong>吧🙃！（如果是权限问题，加上 <code class="language-plaintext highlighter-rouge">sudo</code> ）</p>
+
+<h2 id="（附）pwn.college关于硬链接与软链接的解释"><a href="https://pwn.college/linux-luminarium/commands/#challenges-header-12" target="_blank">（附）pwn.college关于硬链接与软链接的解释</a></h2>
+
+<p>Links come in two flavors: <em>hard</em> and <em>soft</em> (also known as <em>symbolic</em>) links. We’ll differentiate the two with an analogy:</p>
+
+<ul>
+  <li>A <strong>hard</strong> link is when you address your appartment using multiple addresses that all lead directly to the same place (e.g., Apt 2 vs Unit 2).</li>
+  <li>A <strong>soft</strong> link is when you move appartments and have the postal service automatically forward your mail from your old place to your new place.</li>
+</ul>
+
+<p>In a filesystem, a file is, conceptually, an address at which the contents of that file live. A hard link is an alternate address that indexes that data — accesses to the hard link and accesses to the original file are completely identical, in that they immediate yield the necessary data. A soft/symbolic link, instead, contains the original file name. When you access the symbolic link, Linux will realize that it is a symbolic link, read the original file name, and then (typically) automatically access that file. In most cases, both situations result in accessing the original data, but the mechanisms are different.</p>
+
+<p>Hard links sound simpler to most people (case in point, I explained it in one sentence above, versus two for soft links), but they have various downsides and implementation gotchas that make soft/symbolic links, by far, the more popular alternative.</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[链接是个好东西，可以把原文件link到一个链接上，通过链接可以读取原文件，也可以修改原文件。链接可以同步原文件的改动，即链接和原文件内容始终相同。以上的功能不区分软链接还是硬链接，是链接的基本属性。]]></summary></entry><entry><title type="html">使用Ubuntu的第一天是装…字体？</title><link href="/blog/p/first-day-of-using-ubuntu/" rel="alternate" type="text/html" title="使用Ubuntu的第一天是装…字体？" /><published>2025-01-14T21:12:00+08:00</published><updated>2025-01-14T21:12:00+08:00</updated><id>/blog/p/first-day-of-using-ubuntu</id><content type="html" xml:base="/blog/p/first-day-of-using-ubuntu/"><![CDATA[<p>今天是使用Ubuntu的第一天，安装了很多东西，但花了最多时间去<del>找</del>安装的是字体？！</p>
+
+<p>Ubuntu上已经预安装了许多开源字体（以<a href="https://en.wikipedia.org/wiki/Noto_fonts" target="_blank">Noto</a>为最多），但是当下载完WPS打开前段时间做的PPT时，看到了一大片豆腐块状东西…（而且打开WPS的时候报错了！</p>
+
+<p>（可以使用 <code class="language-plaintext highlighter-rouge">fc-list</code> 命令查看已经安装的字体文件，也可以在Ubuntu的搜索界面搜 Fonts ，用图形界面查看）</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fc-list | less
+</code></pre></div></div>
+
+<h2 id="下载">下载</h2>
+
+<p>然后我就在互联网上四处奔波找字体文件，在GitHub上找到了<a href="https://github.com/dv-anomaly/ttf-wps-fonts" target="_blank">ttf-wps-fonts</a>和<a href="https://github.com/adobe-fonts" target="_blank">Adobe Fonts</a>，<del><a href="https://packages.debian.org/sid/fonts/ttf-mscorefonts-installer" target="_blank">微软的英文字体包 ttf-mscorefonts-installer</a>可以使用apt安装</del>（ <code class="language-plaintext highlighter-rouge">ttf-mscorefonts-installer</code> 这个包很长时间没有更新了，遇到缺少的字体还是直接Google吧）</p>
+
+<p>微软的中文字体没有找到打包好的，就得自己去网上一个一个搜了（不过也可以找一台windows薅下来</p>
+
+<p>（1月15日：又在Github上找到了一个<a href="https://github.com/zyh1102/fonts" target="_blank">有很多商业字体文件的仓库</a>，里面有方正粗黑宋简体[FZCHSJW.TTF]）</p>
+
+<h2 id="安装">安装</h2>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">apt install</code> 的字体文件就不用管啦，后面刷新一下就可以了，下面主要针对自己下载的字体文件，介绍如何安装。</p>
+
+<p>fontconfig会扫描特定目录，检查字体，如（ <code class="language-plaintext highlighter-rouge">/usr/share/fonts/</code> 和 <code class="language-plaintext highlighter-rouge">/home/user/.fonts/</code> 等，可以使用下面的命令查看有哪些目录：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fc-cache -v | less
+</code></pre></div></div>
+
+<p>这些目录都可以放字体文件，或者放子目录。我是把零散下载的字体文件放在了 <code class="language-plaintext highlighter-rouge">/home/user/.fonts/</code> 这里，把 ttf-wps-fonts 放到了 <code class="language-plaintext highlighter-rouge">/usr/share/fonts/wps-office/</code> 这里（新建了 wps-office 文件夹）</p>
+
+<p><code class="language-plaintext highlighter-rouge">/home/user/.fonts/</code> 只能user用户使用， <code class="language-plaintext highlighter-rouge">/usr/share/fonts/wps-office/</code> 为系统所有用户可用（不过作为个人PC的单用户使用似乎影响不大？）</p>
+
+<h2 id="刷新缓存">刷新缓存</h2>
+
+<p>刷新缓存后就可以在 <code class="language-plaintext highlighter-rouge">fc-list</code> 中找到下载的字体了。</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fc-cache -fv  # -f选项强制重新生成最新的缓存文件；-v选项是显示任务进度
+</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[今天是使用Ubuntu的第一天，安装了很多东西，但花了最多时间去找安装的是字体？！]]></summary></entry><entry><title type="html">本想在U盘上安装Ubuntu，却错误地装在系统盘了…</title><link href="/blog/p/install-ubuntu-on-my-laptop-mistakenly/" rel="alternate" type="text/html" title="本想在U盘上安装Ubuntu，却错误地装在系统盘了…" /><published>2025-01-13T23:26:00+08:00</published><updated>2025-01-13T23:26:00+08:00</updated><id>/blog/p/install-ubuntu-on-my-laptop-mistakenly</id><content type="html" xml:base="/blog/p/install-ubuntu-on-my-laptop-mistakenly/"><![CDATA[<p>坏消息：数据全没了（只有毕业论文做了备份😢</p>
+
+<p>好消息：提前实现了有一台Linux笔记本的梦想</p>
+
+<p>现在觉得装系统最重要的选项是<strong>安装路径</strong>，其他都不重要（后面都可以改）。怎么当时就这么草率呢？？？！！！</p>
+
+<p>还有一个很麻烦的问题是Arcmap没有Linux版本，而QGIS不知道够不够用。（我的毕业论文还没完成，Arcmap就和我说再见了😢</p>
+
+<p>（昨天看了jyy的《操作系统》硬件篇，看到他在U盘上安装了Ubuntu，上课只需要带一个U盘，插在学校的windows电脑上就能运行，羡慕不已。于是今天下午突发奇想，下载了镜像，清空了U盘，开始操作。结果就是原来的系统和数据全都找不回来了…关于这次失误，应该是完全没意识到安装系统还要选位置…所以，操作系统也只是一个软件啊…）</p>
+
+<p>（还有一个教训就是：重要的数据或者代码需要备份！可以云备份尽量云备份，不方便上传到云上就在本地多个设备/磁盘进行备份）</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[坏消息：数据全没了（只有毕业论文做了备份😢]]></summary></entry><entry><title type="html">使用selenium模拟浏览器登录校园网</title><link href="/blog/p/using-selenium-to-login-campus-network/" rel="alternate" type="text/html" title="使用selenium模拟浏览器登录校园网" /><published>2025-01-09T10:49:00+08:00</published><updated>2025-01-09T10:49:00+08:00</updated><id>/blog/p/using-selenium-to-login-campus-network</id><content type="html" xml:base="/blog/p/using-selenium-to-login-campus-network/"><![CDATA[<p>校园网采用无感知认证，登录一次后自动添加MAC地址，下次登录可以直接连接。而有一次校园网不是很稳定，服务器断网了，我从校园网的控制界面下线了服务器，然后又手动重启（ <strong><code class="language-plaintext highlighter-rouge">关闭 &amp; 打开</code></strong> 服务器的电源），这时候发现服务器还是连不上校园网，打开无感知认证一看，之前保存的服务器MAC地址清除了。以往为了添加这个MAC地址，需要去实验室借用显示器，打开图形界面，从浏览器里登录校园网进行认证，总之非常麻烦。所以当时后悔莫及，真是手欠，为什么要点那个下线呢。</p>
+
+<p>因为不想再跑实验室借显示器打开图形界面从浏览器登录校园网认证，所以考虑通过命令行终端登录校园网的办法。</p>
+
+<p>还因为自己对网络知之甚少，抓包、逆向难度过高，所以果断选择使用selenium模拟浏览器登录的方法。</p>
+
+<p>借助GPT，使用selenium并不困难，相关代码已存档<a href="https://github.com/wuhulamb/lzu_net_login" target="_blank">GitHub</a>，这里主要讲讲调试过程。</p>
+
+<p>最大的问题是，如果服务器连接的是手机的热点与电脑通信，那一旦连校园网，ssh隧道就会断开，而脚本运行失败，就意味着服务器失联，然后又得手动重启（ <strong><code class="language-plaintext highlighter-rouge">关闭 &amp; 打开</code></strong> 服务器的电源）。没错，所以最后是<strong>连着校园网进行调试</strong>的。既然已经能连上校园网了为什么还要再折腾呢？为了<del>那个脚本程序不白写</del>学习使用selenium。（虽然也不全是自己写的[手动狗头]）</p>
+
+<p>总之，我抱着一定要在服务器上成功运行的坚定意志开始了我的调试。</p>
+
+<h2 id="windows上先跑起来">Windows上先跑起来</h2>
+
+<p>这里虽然和调试无关，却非常关键，一代目脚本诞生在这里。</p>
+
+<h2 id="linux上设置开机执行自定义脚本">Linux上设置开机执行自定义脚本</h2>
+
+<p>为了图简单，我用的是crontab。</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 编辑crontab
+crontab -e
+</code></pre></div></div>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 写入开机要执行的命令
+@reboot bash /path/to/script.sh
+</code></pre></div></div>
+
+<p>删除全部定时任务的命令是：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab -r
+</code></pre></div></div>
+
+<h2 id="重启-x-n次">重启 x N次</h2>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx3.sinaimg.cn/large/008kbRJbly1hxenv9x8qrj31fj0sa4ih.jpg" alt="lzu_net_test.jpg" />
+<figcaption>测试 x N次</figcaption>
+</figure>
+
+<p>这是调试花费时间最多的环节。每次重启完，我都会紧张又期待地看着校园网控制台，希望看到一台新机器的连入，但希望总是落空。然后，就去控制台把服务器MAC地址添加进来，等待服务器自动连接。（没错，无感知认证可以手动添加MAC地址，而我却仍然坚定地想让服务器模拟浏览器自动登录）</p>
+
+<p>当然，每次重启完，我都会去看脚本运行的日志，将报错记录扔给GPT，我也逐渐感觉到问题的所在。selenium模拟浏览器运行是通过一个驱动程序打开浏览器完成的，加载网页的时候，网页响应的时间往往比程序运行的时间长。这意味着有时候网页还没有发过来，程序已经往后运行了，而后面的程序是和网页相关的，它找不到网页就会报错。还有就是，selenium打开浏览器初始化速度比较慢，需要等待一段时间。</p>
+
+<p>所以，最后解决办法就是在Python代码中加入 <code class="language-plaintext highlighter-rouge">time.sleep()</code></p>
+
+<p>（调试过程中，我还曾在script.sh脚本中加入过 <code class="language-plaintext highlighter-rouge">sleep 30</code> ，结果影响到后面的Python代码运行了，日志文件完全没变？！后来就把sleep放到Python代码里面，然后就很成功地登录上了）</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1hxenv9wa9hj31hc0scdtr.jpg" alt="lzu_net_py.jpg" />
+<figcaption>开机后脚本成功运行！</figcaption>
+</figure>
+
+<h2 id="补充arm64的linux下载安装chromedriver">（补充）ARM64的Linux下载安装chromedriver</h2>
+
+<p>chromedriver需要和本地的chrome版本匹配，下面附上官方不同版本的chromedriver下载地址：</p>
+
+<ul>
+  <li>版本在114及以下：<a href="http://chromedriver.storage.googleapis.com/index.html" target="_blank">http://chromedriver.storage.googleapis.com/index.html</a></li>
+  <li>最新版：<a href="https://googlechromelabs.github.io/chrome-for-testing/" target="_blank">https://googlechromelabs.github.io/chrome-for-testing/</a></li>
+  <li>GitHub：<a href="https://github.com/GoogleChromeLabs/chrome-for-testing" target="_blank">https://github.com/GoogleChromeLabs/chrome-for-testing</a></li>
+</ul>
+
+<p>但是很快我发现没有ARM64的版本（Linux64是x86_64的Linux），然后在<a href="https://github.com/electron/electron/releases" target="_blank">electron</a>找到了编译好的ARM64的chromedriver。</p>
+
+<p>Linux可以先查看一下chrome的版本：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chromium-browser --version
+</code></pre></div></div>
+
+<p>然后在上述GitHub项目中寻找对应版本的chromedriver（没错，我就是一页一页往下翻看更新说明找到的！）</p>
+
+<h2 id="彩蛋哪里用到了x11-forwarding">（彩蛋）哪里用到了X11 Forwarding</h2>
+
+<p>前面的一篇<a href="/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh/">介绍X11转发</a>的博客说到因为要使用浏览器登录认证身份联网，所以需要用到X11转发，解决ssh连接使用图形程序的问题。实际在没有登录上校园网时，ssh也连接不上，自然也用不到X11转发，但是在调试过程为了确认<strong>不是因为浏览器版本导致界面显示不同而报错</strong>确实用到了X11转发。</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[校园网采用无感知认证，登录一次后自动添加MAC地址，下次登录可以直接连接。而有一次校园网不是很稳定，服务器断网了，我从校园网的控制界面下线了服务器，然后又手动重启（ 关闭 &amp; 打开 服务器的电源），这时候发现服务器还是连不上校园网，打开无感知认证一看，之前保存的服务器MAC地址清除了。以往为了添加这个MAC地址，需要去实验室借用显示器，打开图形界面，从浏览器里登录校园网进行认证，总之非常麻烦。所以当时后悔莫及，真是手欠，为什么要点那个下线呢。]]></summary></entry><entry><title type="html">使用X11转发做到SSH连接Linux打开图形程序</title><link href="/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh/" rel="alternate" type="text/html" title="使用X11转发做到SSH连接Linux打开图形程序" /><published>2025-01-07T19:41:00+08:00</published><updated>2025-01-07T19:41:00+08:00</updated><id>/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh</id><content type="html" xml:base="/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh/"><![CDATA[<p>假设你有一台没有显示器的机器（Linux系统），并且你只能通过SSH连接它。为了能够使用它，你认真学习了很多命令，然而就在你以为再也不需要什么图形界面的时候，你遇到了一个<strong>必须使用浏览器登录认证身份联网</strong>的问题（<del>等有空补上这篇博客</del> 👉 <a href="/blog/p/using-selenium-to-login-campus-network/">使用selenium模拟浏览器登录校园网</a>）。</p>
+
+<p>命令行再厉害，遇到浏览器，也只能认输，桌面才是最适合浏览器使用的环境。但是SSH怎么弄一个桌面出来？！</p>
+
+<h2 id="x11-forwarding">X11 Forwarding</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X client (Linux) &lt;---&gt; X Server (Windows)
+</code></pre></div></div>
+
+<p>原理大概就是Linux上设置转发路径，将图形程序的数据转发给Windows显示。</p>
+
+<h2 id="linux设置display环境变量">Linux设置DISPLAY环境变量</h2>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export DISPLAY=192.168.23.46:0.0  # hostname填X Server的ip
+# export DISPLAY=hostname:display_number.screen_number
+</code></pre></div></div>
+
+<p>测试用的图形程序：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Ubuntu/Debian
+sudo apt update
+sudo apt install x11-apps
+</code></pre></div></div>
+
+<h2 id="windows安装x-server">Windows安装X Server</h2>
+
+<p>推荐安装<a href="https://sourceforge.net/projects/xming/" target="_blank">Xming</a>（轻量且易用）</p>
+
+<p>安装过程可以根据需要选择性安装（例如：已经可以通过终端SSH登录就不需要再安装Putty了）</p>
+
+<p>安装完成后，<strong>不要直接打开Xming</strong>。打开XLaunch完成配置，它会自动打开Xming，运行服务器程序。</p>
+
+<p>配置XLaunch只需要注意勾选No Access Control，其他默认即可。</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbly1hxcgv9ps7kj30ho0eg0vy.jpg" alt="XLaunch_config.jpg" />
+<figcaption>勾选No Access Control</figcaption>
+</figure>
+
+<h2 id="验证">验证</h2>
+
+<p>在设置好DISPLAY环境变量的Linux命令行界面运行X11图形测试程序</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xeyes
+</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[假设你有一台没有显示器的机器（Linux系统），并且你只能通过SSH连接它。为了能够使用它，你认真学习了很多命令，然而就在你以为再也不需要什么图形界面的时候，你遇到了一个必须使用浏览器登录认证身份联网的问题（等有空补上这篇博客 👉 使用selenium模拟浏览器登录校园网）。]]></summary></entry></feed>
