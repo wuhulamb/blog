@@ -27,6 +27,8 @@
 <link rel="manifest" href="/blog/favicon/site.webmanifest" />
 
 <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+
 </head>
 <body><header class="site-header">
 
@@ -40,7 +42,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/blog/category/">Category</a><a class="page-link" href="/blog/links/">Links</a><a class="page-link" href="/blog/about/">About</a></div>
+        <div class="trigger"><a class="page-link" href="/blog/category/">Category</a><a class="page-link" href="/blog/link/">Link</a><a class="page-link" href="/blog/about/">About</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -135,16 +137,16 @@ categories: "others blog"
   <li>post的meta信息展示也比较简单就不放了 :)</li>
 </ul>
 
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;ul&gt;
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
 {% for top_page in site.pages %}
   {% assign top_found = false %}
   {% if top_page.path contains 'categories/' and top_page.level == '1' %}
     {% assign top_category = top_page.title %}
     {% assign top_category_url = top_page.url %}
     {% assign top_found = true %}
-&lt;li&gt;
-&lt;a class="category-list-link" href="{{ top_category_url | relative_url }}"&gt;{{ top_category }}&lt;/a&gt;
-&lt;span class="category-list-count"&gt;{{ site.categories[top_category].size }}&lt;/span&gt;
+<span class="nt">&lt;li&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"category-list-link"</span> <span class="na">href=</span><span class="s">"{{ top_category_url | relative_url }}"</span><span class="nt">&gt;</span>{{ top_category }}<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-list-count"</span><span class="nt">&gt;</span>{{ site.categories[top_category].size }}<span class="nt">&lt;/span&gt;</span>
 
 {% if top_found %}
 {% assign sec_found = false %}
@@ -155,25 +157,25 @@ categories: "others blog"
 {% endfor %}
 
 {% if sec_found %}
-&lt;ul&gt;
+<span class="nt">&lt;ul&gt;</span>
   {% for sec_page in site.pages %}
     {% if sec_page.path contains 'categories/' and sec_page.level == '2' and sec_page.belong_to == top_category %}
       {% assign sec_category = sec_page.title %}
       {% assign sec_category_url = sec_page.url %}
-&lt;li&gt;
-&lt;a class="category-list-link" href="{{ sec_category_url | relative_url }}"&gt;{{ sec_category }}&lt;/a&gt;
-&lt;span class="category-list-count"&gt;{{ site.categories[sec_category].size }}&lt;/span&gt;
-&lt;/li&gt;
+<span class="nt">&lt;li&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"category-list-link"</span> <span class="na">href=</span><span class="s">"{{ sec_category_url | relative_url }}"</span><span class="nt">&gt;</span>{{ sec_category }}<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-list-count"</span><span class="nt">&gt;</span>{{ site.categories[sec_category].size }}<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/li&gt;</span>
     {% endif %}
   {% endfor %}
-&lt;/ul&gt;
+<span class="nt">&lt;/ul&gt;</span>
 {% endif %}
 {% endif %}
 
-&lt;/li&gt;
+<span class="nt">&lt;/li&gt;</span>
   {% endif %}
 {% endfor %}
-&lt;/ul&gt;
+<span class="nt">&lt;/ul&gt;</span>
 </code></pre></div></div>
 
   </div><a class="u-url" href="/blog/p/multi-level-category/" hidden></a>

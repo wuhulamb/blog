@@ -1,4 +1,325 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-05-09T20:06:19+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">L校资源预约系统渗透测试</title><link href="/blog/p/hack-in-lzu-cgyy/" rel="alternate" type="text/html" title="L校资源预约系统渗透测试" /><published>2025-04-26T10:48:00+08:00</published><updated>2025-04-26T10:48:00+08:00</updated><id>/blog/p/hack-in-lzu-cgyy</id><content type="html" xml:base="/blog/p/hack-in-lzu-cgyy/"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-06-02T17:17:01+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">本科毕业论文</title><link href="/blog/p/undergraduate-thesis/" rel="alternate" type="text/html" title="本科毕业论文" /><published>2025-06-02T10:20:00+08:00</published><updated>2025-06-02T10:20:00+08:00</updated><id>/blog/p/undergraduate-thesis</id><content type="html" xml:base="/blog/p/undergraduate-thesis/"><![CDATA[<h1 style="text-align: center; margin-bottom: 30px;"><strong>基于POI数据的兰州市生活性服务业空间格局研究</strong></h1>
+
+<p><strong>摘　要：</strong>生活性服务业是服务业经济中的重要组成部分，合理布局空间位置可以加快城市经济发展、提高人们生活水平。本文基于兰州市六类生活性服务业POI数据，运用核密度分析、熵指数、数值统计等方法研究兰州市生活性服务业的空间格局特征，结果发现：1）兰州市生活性服务业呈现“中心——外围”结构特征，中心多与区县政府所在地空间邻近；2）将兰州市行政区依据生活性服务业的密度和种类排名，最高为城关区，其次是七里河区、安宁区、西固区，最后是红古区、榆中县、皋兰县、永登县；3）高附加值的服务相对集中在兰州市中心城区，低附加值的服务则相对分散。<br /><strong>关键词：</strong>生活性服务业；空间格局；POI；兰州市</p>
+
+<h2 id="引言">引　言</h2>
+
+<p>生活性服务业与人们的日常生活息息相关，合理布局生活性服务业的空间位置可以提升生活设施的利用效率，进一步提高人们的生活水平[1]。随着我国经济高速发展，城镇化率快速升高，居民收入水平不断提高，人们对城市生活性服务业的需求快速上升[5]。然而整体来看，我国生活性服务业发展仍相对滞后，如何优化生活性服务业的空间格局以提高空间效率正成为政府和学术界关注的焦点。</p>
+
+<p>随着科学技术的不断发展，地理信息系统的建设越来越完善，使用POI数据进行相关研究逐渐成为新的趋势[2]。POI数据具有信息量大、准确度高、容易获取等诸多优点，因而适用于各种尺度、范围的空间研究[1,3,5]。使用POI数据进行生活性服务业空间格局的研究不在少数，如冉钊等基于POI数据研究了长沙市的生活性服务业空间格局[1]，王娜等则研究了深圳市的生活性服务业空间格局及影响因素[4]，张家旗等研究了郑州市中心城区的生活性服务业空间分布特征[5]。总体而言，使用POI数据对城市一类要素的空间格局研究十分普遍，相关研究方法也较为成熟。</p>
+
+<p>本文的研究对象为兰州市，兰州市受地形影响较大，主要城区城镇均位于河谷之中，生活性服务业的布局与其他非河谷城市差别较大。本文通过研究兰州市的生活性服务业空间格局，尝试探索其布局内在规律，为未来城市规划的科学决策贡献力量。</p>
+
+<h2 id="1-理论基础与研究综述">1 理论基础与研究综述</h2>
+
+<h3 id="11-理论基础">1.1 理论基础</h3>
+
+<p>对城市生活性服务业的研究最早可追溯到克里斯泰勒在20世纪30年代提出的中心地理论。该理论内容包括，城市存在中心地，中心地是为周边区域提供商品和服务的聚集，中心地因提供商品和服务的能力存在不同等级差异；商品和服务也存在等级差异，低级商品的需求频率高，服务范围小，高级商品的需求频率低，服务范围大；三种空间组织原则：市场原则（K=3），交通原则（K=4），行政原则（K=7）[6]。</p>
+
+<p>在克里斯泰勒的中心地理论基础上，相关理论不断发展完善。其中，廖什的市场区位论强调经济因素对区位选择的影响[7]；伯吉斯的同心圆模型创建了城市结构研究的经典模型[8]；佩鲁的增长极理论引入了增长极概念，解释了集聚效应和扩散效应[9]；弗里德曼的核心-边缘理论研究了核心区和边缘区的关系，从而解释了区域发展不平衡的现象[10]；乌尔曼等多位学者共同提出的空间相互作用理论主要研究不同区域之间的人口、商品、信息的流动规律[11]；以克鲁格曼为代表的学者提出的新经济地理学强调规模经济、运输成本和集聚效应对区域发展的影响，为全球化背景下的区域发展提供了新的理论框架[12]。本文主要依赖克里斯泰勒的中心地理论，试图探究兰州市的生活性服务业空间分布规律，并尝试找到其背后的影响因素。</p>
+
+<h3 id="12-研究综述">1.2 研究综述</h3>
+
+<p>国外学者对城市生活性服务业研究起步较早，研究主要集中于空间布局和影响因素。上个世纪90年代，Coffey对加拿大蒙特利尔大都市区高阶服务活动在城市内部的分布模式及其影响因素进行了研究[13]；21世纪初，Prayag通过GIS技术分析了汉密尔顿市餐饮业位置的演变，研究了餐厅聚集的模式及其可能的驱动因素[14]；Hans探讨了荷兰的购物街商铺集聚的经济机制[15]。</p>
+
+<p>国内学者对城市生活性服务业也进行了多样化的探索。研究初期，宁越敏、吴郁文等学者对上海、广州的商业布局、等级结构、形成原因进行了探讨[16,17]；杨吾扬对北京零售商业与服务业网点形成的历史背景、空间结构及未来的中心进行了研究[18]。随着互联网技术的迅速发展，使用兴趣点（Points of Interest）数据、网站点评数据、社交媒体数据进行的相关研究越来越多。浩飞龙运用POI数据对长春市商业服务空间分布特征、等级结构，以及各行业的分布规律进行了研究[19]；李卫东基于POI数据对南京市空间格局和商业空间要素布局分别进行了研究[20]。同时，城市居民日益增长的美好生活需要也推动了学者们对餐饮住宿、休闲娱乐、养老等服务业的研究[21-23]。研究数据从早期的调研普查到互联网大数据，研究方法从几何空间的定量分析向包含文本分析的定量定性相结合过渡，研究内容也更关注消费者的心理、情感。</p>
+
+<p>综合来看，已有研究在分析生活性服务业的空间布局时，研究方法以核密度分析为主，且多以行政区划为统计单元。本研究额外使用熵指数方法和主导生活性服务业分析方法，尝试从新的角度对生活性服务业分布的空间规律进行解释，并且以划分的格网为统计单元，更细致地刻画生活性服务业的分布情况。</p>
+
+<h2 id="2-研究区概况数据来源与研究方法">2 研究区概况、数据来源与研究方法</h2>
+
+<h3 id="21-研究区概况">2.1 研究区概况</h3>
+
+<p>兰州市位于中国西北部，甘肃省中部，地处中国陆域版图几何中心，是西部地区重要中心城市、工业基地、综合交通枢纽和丝绸之路经济带的核心节点城市。截至2023年[24]，全市地区生产总值3487.3亿元，常住人口442.51万人，城镇人口375.45万人，城镇化率达到了84.85%。兰州市地域总面积1.31万平方公里，全市地貌主要为山地、高原、平川、河谷、沙漠、戈壁六大类，城镇乡村大多集中在平川、河谷地带。</p>
+
+<p>兰州市于2019年确立“一心两翼”的城市发展战略格局，以兰州市中心城区四区（城关区、七里河区、安宁区、西固区）为“核心”，兰州新区和榆中县为“两翼”，推动人居向东、产业向北转移。兰州市中心城区是兰州市人口经济高度集中的区域，历史悠久，发展充分；兰州新区是2012年设立的国家级新区，为未来的重点发展对象；榆中县于2019年确立建设榆中生态文化创新城，明确了建设成为“西部创新新平台、甘肃新兴增长极、兰州城市副中心”的总体定位。兰州市城市发展战略在延续历史发展路径的基础上，新确立兰州新区和榆中生态文化创新城发展区域，对城市的生活性服务业布局产生了重要影响。</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i20ux0cj8bj31lg1lgqb4.jpg" alt="undergraduate-thesis-lanzhou-administration.jpg" />
+<figcaption>图1 兰州市行政区划边界<br />Fig.1 Administrative division boundaries of Lanzhou</figcaption>
+</figure>
+
+<h3 id="22-数据来源">2.2 数据来源</h3>
+
+<p>在《生活性服务业统计分类（2019）》的基础上，结合研究内容和数据的可获得性，以日常生活最常使用的服务为主要依据，将兰州市的生活性服务业分为以下六类。</p>
+
+<figure>
+<figcaption>表1 兰州市POI数据的生活性服务业分类表<br />Tab.1 Classification table of consumer services industry of POI data in Lanzhou</figcaption>
+</figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">ID</th>
+      <th style="text-align: center">大类</th>
+      <th style="text-align: center">子类</th>
+      <th style="text-align: center">数量/个</th>
+      <th style="text-align: center">比例/%</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">餐饮服务</td>
+      <td style="text-align: center">中餐厅、西餐厅、快餐、咖啡店、甜品店等</td>
+      <td style="text-align: center">24625</td>
+      <td style="text-align: center">25.90</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">购物服务</td>
+      <td style="text-align: center">商场、便利店、服装鞋帽、家用电器等</td>
+      <td style="text-align: center">40219</td>
+      <td style="text-align: center">42.30</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">生活服务</td>
+      <td style="text-align: center">物流快递、邮局、事务所、旅行社等</td>
+      <td style="text-align: center">19497</td>
+      <td style="text-align: center">20.50</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">金融保险服务</td>
+      <td style="text-align: center">银行、保险公司、证券公司、财务公司等</td>
+      <td style="text-align: center">2429</td>
+      <td style="text-align: center">2.55</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">商务住宅服务</td>
+      <td style="text-align: center">写字楼、别墅、产业园区、住宅小区等</td>
+      <td style="text-align: center">4412</td>
+      <td style="text-align: center">4.64</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">6</td>
+      <td style="text-align: center">住宿服务</td>
+      <td style="text-align: center">宾馆、酒店、招待所等</td>
+      <td style="text-align: center">3905</td>
+      <td style="text-align: center">4.11</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">总计</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">95087</td>
+      <td style="text-align: center">100.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="font-size: 16px; color: grey;">数据来源：高德地图</p>
+
+<p>随着电子地图的快速发展，POI数据的覆盖度也不断提高，使用POI数据进行的科学研究也日益广泛。POI数据是一种具有位置和相关属性（名称、类别等）的点数据，可以用来反映研究区域服务的空间分布情况。本文针对前面的六个生活性服务业分类，使用Python分别爬取高德地图对应POI数据。最后共爬取95087条数据，爬取时间为2023年10月。</p>
+
+<p>本文的研究区域为兰州市市域，研究基本单元为兰州市行政区划和划分格网。划分格网参考已有文献资料[1]，根据研究区面积、POI数量，以1000m×1000m的正方形方格，将兰州市划分为13692个基本单元。本文将大尺度行政区划统计分析的优势和小尺度格网分析的优势结合起来，更加深入地研究兰州市生活性服务业空间布局。</p>
+
+<h3 id="23-研究方法">2.3 研究方法</h3>
+
+<h4 id="231-核密度分析">2.3.1 核密度分析</h4>
+
+<p>核密度分析法是一种度量空间要素分布密度的方法。该方法以空间某位置为中心，计算一定带宽范围内的所有空间要素的核函数值，再进行求和，得到该位置的核密度。本文通过使用ArcGIS的核密度分析工具，遍历空间所有栅格，分别计算每个栅格的核密度，得到整个空间的核密度概况。</p>
+
+\[f(x, y) = \frac{1}{nh^2} \sum_{i=1}^{n} K\left(\frac{d_i}{h}\right)\]
+
+<p>其中，$h$为设置的带宽，$n$为距中心$(x,y)$距离小于带宽$h$的空间要素个数，$d_i$为空间要素到中心$(x,y)$的距离，$K$为核函数。</p>
+
+<h4 id="232-poi熵指数">2.3.2 POI熵指数</h4>
+
+<p>借鉴香农在信息论中提出的熵指数概念，定义如下的POI熵指数，用来衡量生活性服务业的功能多样性[1]。POI熵指数的值越大，表示该区域的生活性服务业功能多样性越丰富。</p>
+
+\[H_i = -\sum_{k} P_{ik} \ln(P_{ik})\]
+
+<p>其中，$i$为某个区域，$k$表示某个生活性服务业，$P_{ik}$由下面两式计算得到。$T_{ik} = \frac{N_{ik}}{N_{k}}$，$P_{ik} = \frac{T_{ik}}{\sum_{i} T_{ik}}$。$N_{ik}$为格网$i$内生活性服务业$k$的POI个数，$N_k$为该服务业全部POI个数。得到$T_{ik}$后，再对区域$i$的不同服务业$T_{ik}$进行归一即得到$P_{ik}$。</p>
+
+<h4 id="233-数值统计">2.3.3 数值统计</h4>
+
+<p>统计符合条件的生活性服务业POI个数，再除以对应条件下的总和，可以得到符合条件的生活性服务业的数值统计结果。</p>
+
+\[C_{ik} = \frac{N_{ik}}{\sum_{i} N_{ik}}\]
+
+<p>其中，$k$表示生活性服务业，$N_{ik}$表示符合条件$i$的$k$生活性服务业POI个数，$C_{ik}$表示符合条件$i$的$k$生活性服务业比例。</p>
+
+<h2 id="3-兰州市生活性服务业空间格局">3 兰州市生活性服务业空间格局</h2>
+
+<p>按照兰州市行政区，对生活性服务业POI数量进行统计，并计算网点密度和人均网点数，得到表2。从兰州市生活性服务业网点密度来看，城关区生活性服务业分布最密集，网点密度达到了186.28个/km2，永登县分布最稀疏，网点密度只有0.82个/km2，两者相差227倍。从生活性服务业人均网点数看，皋兰县最高人均网点数为825.46个/万人，城关区人均网点数为257.29个/万人，西固区人均网点数为174.40个/万人。皋兰县的人均网点数实际存在虚高问题。主要原因是兰州市统计局在进行人口统计时，将兰州新区（主要位于皋兰县）和各行政区并行统计，导致皋兰县和永登县的人口统计数据偏低。所以，最终导致皋兰县的人均网点数高达825.46个/万人。总体来看，城关区生活性服务业的网点密度和人均网点数都相对较高，其次是七里河区、安宁区、西固区，最后是红古区，榆中县、皋兰县、永登县。</p>
+
+<figure>
+<figcaption>表2 2023年兰州市各行政区生活性服务业密度概况<br />Tab.2 Density of consumer services industry in administrative districts of Lanzhou in 2023</figcaption>
+</figure>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">行政区</th>
+      <th style="text-align: center">POI数量/个</th>
+      <th style="text-align: center">面积/km2</th>
+      <th style="text-align: center">常住人口/万人</th>
+      <th style="text-align: center">网点密度/(个/km2)</th>
+      <th style="text-align: center">人均网点数/(个/万人)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">城关区</td>
+      <td style="text-align: center">38714</td>
+      <td style="text-align: center">207.83</td>
+      <td style="text-align: center">150.47</td>
+      <td style="text-align: center">186.28</td>
+      <td style="text-align: center">257.29</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">七里河区</td>
+      <td style="text-align: center">15042</td>
+      <td style="text-align: center">397.49</td>
+      <td style="text-align: center">72.35</td>
+      <td style="text-align: center">37.84</td>
+      <td style="text-align: center">207.91</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">安宁区</td>
+      <td style="text-align: center">8701</td>
+      <td style="text-align: center">441.74</td>
+      <td style="text-align: center">47.44</td>
+      <td style="text-align: center">19.70</td>
+      <td style="text-align: center">183.41</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">西固区</td>
+      <td style="text-align: center">7215</td>
+      <td style="text-align: center">385.30</td>
+      <td style="text-align: center">41.37</td>
+      <td style="text-align: center">18.73</td>
+      <td style="text-align: center">174.40</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">红古区</td>
+      <td style="text-align: center">3321</td>
+      <td style="text-align: center">567.66</td>
+      <td style="text-align: center">14.07</td>
+      <td style="text-align: center">5.85</td>
+      <td style="text-align: center">236.03</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">榆中县</td>
+      <td style="text-align: center">9474</td>
+      <td style="text-align: center">3301.64</td>
+      <td style="text-align: center">47.13</td>
+      <td style="text-align: center">2.87</td>
+      <td style="text-align: center">201.02</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">皋兰县</td>
+      <td style="text-align: center">7619</td>
+      <td style="text-align: center">1680.53</td>
+      <td style="text-align: center">9.23</td>
+      <td style="text-align: center">4.53</td>
+      <td style="text-align: center">825.46</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">永登县</td>
+      <td style="text-align: center">5001</td>
+      <td style="text-align: center">6090.00</td>
+      <td style="text-align: center">26.52</td>
+      <td style="text-align: center">0.82</td>
+      <td style="text-align: center">188.57</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">总计</td>
+      <td style="text-align: center">95087</td>
+      <td style="text-align: center">13072.19</td>
+      <td style="text-align: center">408.58</td>
+      <td style="text-align: center">7.27</td>
+      <td style="text-align: center">232.73</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="font-size: 16px; color: grey;">数据来源：兰州市统计年鉴及高德地图</p>
+
+<h3 id="31-生活性服务业核密度分布">3.1 生活性服务业核密度分布</h3>
+
+<p>使用ArcGIS的核密度分析工具对兰州市六类生活性服务业POI进行分析，将结果拉伸后，再分级展示，得到图2兰州市生活性服务业核密度分析结果。生活性服务业核密度最高的地方集中在兰州市中心城区，位于城关区、七里河区、安宁区、西固区这四区的河谷地带。红古区生活性服务业核密度最高的地方位于其区政府所在地，永登县核密度最高的地方同样位于其县政府所在地。皋兰县核密度较高的地方主要有两块，一块是县政府所在地，一块是正在建设的兰州新区。榆中县核密度最高的地方为县政府所在地，其次是和平镇政府、定远镇大名城和夏官营镇两所高校所在地。</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i20ux0mzh1j31lg1lg48i.jpg" alt="undergraduate-thesis-lanzhou-kernel-density.jpg" />
+<figcaption>图2 兰州市生活性服务业核密度分析<br />Fig.2 Kernel density analysis of consumer services industry in Lanzhou</figcaption>
+</figure>
+
+<p>兰州市中心城区生活性服务业在空间上呈现明显的“中心——外围”结构特征，组成中心城区的四个区也各自呈现“中心——外围”结构特征。研究可发现，城关区以张掖路商业街为主核心，以王府井商圈、雁滩万达广场附近为次核心；七里河区以敦煌路——兰州中心为核心；安宁区以安宁西路为核心；西固区以西固城商业步行街为核心。四区从核心向外围的生活性服务业核密度值逐层递减，在空间上符合克里斯泰勒的中心地理论。</p>
+
+<h3 id="32-生活性服务业功能多样性">3.2 生活性服务业功能多样性</h3>
+
+<p>根据公式（2）测算每个单元格的生活性服务业熵指数，并基于ArcGIS自然断裂点法将兰州市生活性服务业功能多样性分为七类，得到图3兰州市生活性服务业功能多样性分析结果。整个兰州市生活性服务业功能多样性的高值多集中在中心城区，而城关区的生活性服务业功能多样性高值在中心城区四个区中又是占比最多的（图4）。生活性服务业功能多样性高值相对较多的片区为兰州新区和各区县政府所在地。图3中还存在生活性服务业功能多样性有值单元格的线状分布和少数零星分布情况。</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx4.sinaimg.cn/large/008kbRJbly1i20ux166hbj323g1wxwxj.jpg" alt="undergraduate-thesis-lanzhou-functional-diversity.jpg" />
+<figcaption>图3 兰州市生活性服务业功能多样性分析<br />Fig.3 Functional diversity analysis of consumer services industry in Lanzhou</figcaption>
+</figure>
+
+<p>统计每个行政区包含的不同生活性服务业功能多样性级别的单元格数占该行政区包含的所有单元格数比例，得到图4生活性服务业功能多样性分区分级图。城关区最高级别的功能多样性占比为15.19%，远高于其他行政区。七里河区、安宁区、西固区最高级别的功能多样性占比分别为3.77%、4.85%和3.51%。红古区、榆中县、皋兰县、永登县最高级别的功能多样性占比均不超过1.23%，从高到低前三个级别功能多样性占比加和分别为3.66%、2.04%、2.39%、0.62%。依据生活性服务业功能多样性级别占比，可对八个行政区进行排序。第一梯队为城关区，第二梯队包括七里河区、安宁区、西固区，第三梯队包括红古区、榆中县、皋兰县、永登县。</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx4.sinaimg.cn/large/008kbRJbly1i20uwz8slzj310p0m50wg.jpg" alt="undergraduate-thesis-lanzhou-administrative-districts-for-functional-diversity.jpg" />
+<figcaption>图4 兰州市生活性服务业功能多样性分区统计图<br />Fig.4 Stacked bar chart of administrative districts for functional diversity of consumer services industry in Lanzhou</figcaption>
+</figure>
+
+<h3 id="33-不同区域的主导生活性服务业">3.3 不同区域的主导生活性服务业</h3>
+
+<p>通过统计每个单元格中不同生活性服务业的POI个数，计算每类POI占该类全部POI比例，再取占比最大的类别为该单元格的主导生活性服务业，得到图5兰州市主导生活性服务业分析。金融保险服务、商务住宅服务和住宿服务主要集中在兰州市中心城区、兰州新区和榆中县部分片区，而餐饮服务、购物服务和生活服务则相对分散。和图2兰州市生活性服务业核密度分析的结果比较发现，金融保险服务、商务住宅服务和住宿服务高附加值服务业主要集中于核密度较高的区域，而餐饮服务、购物服务和生活服务低附加值服务业分散于核密度较低的区域。</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1i20ux1s20kj323g1wxb29.jpg" alt="undergraduate-thesis-lanzhou-dominant-consumer-services-industry.jpg" />
+<figcaption>图5 兰州市主导生活性服务业分析<br />Fig.5 Analysis of dominant consumer services industry in Lanzhou</figcaption>
+</figure>
+
+<p>在图5兰州市主导生活性服务业分析基础上结合图3兰州市生活性服务业功能多样性分析，通过统计每类主导生活性服务的格网中不同级别的功能多样性个数占该类服务全部格网数比例，得到图6兰州市生活性服务业功能多样性水平分级统计图。可以发现餐饮服务、购物服务、生活服务多集中在功能多样性较低的区域，而金融保险服务、商务住宅服务和住宿服务主要集中在功能多样性较高的区域。和前面分析的结果保持一致。</p>
+
+<figure>
+<img src="https://image.baidu.com/search/down?url=https://wx4.sinaimg.cn/large/008kbRJbly1i20ux02qrdj329z1c0h45.jpg" alt="undergraduate-thesis-lanzhou-different-services-for-functional-diversity.jpg" />
+<figcaption>图6 兰州市生活性服务业功能多样性水平分级统计图<br />Fig.6 Stacked bar chart of different services for functional diversity of consumer services industry in Lanzhou</figcaption>
+</figure>
+
+<p>综合以上，可发现高附加值服务（金融保险服务、商务住宅服务和住宿服务）主要集中在生活性服务业密度和种类较高的区域，而低附加值的服务（餐饮服务、购物服务、生活服务）则分散在生活性服务业密度和种类较低的区域。</p>
+
+<h2 id="4-结论与讨论">4 结论与讨论</h2>
+
+<p>本文基于兰州市生活性服务业POI数据，采用核密度、熵指数、数值统计方法，研究了兰州市生活性服务业的空间格局特征，主要结论如下：1）兰州市生活性服务业主要集中在城关区、七里河区、安宁区、西固区四区所在的中心城区内，其次是其余各区县（红古区、榆中县、皋兰县、永登县）的政府单位所在地和兰州新区管委会所在地。2）兰州市中心城区生活性服务业核密度呈现“中心——外围”结构，中心四区分别有各自的中心，且中心与行政区政府所在地空间邻近。3）按行政区排名，城关区的生活性服务业种类和密度最高，其次是七里河区、安宁区、西固区，最后是红古区、榆中县、皋兰县、永登县。4）高附加值的服务（金融保险、商务住宅和住宿服务）相对集中在中心城区，低附加值的服务（餐饮、购物、生活服务）则相对分散。</p>
+
+<p>兰州市的生活性服务业空间格局现状与《兰州市国土空间总体规划（2021﹣2035年）》中城镇空间与功能布局、中心城区规划基本一致，符合中长期发展规划。为促进兰州市生活性服务业的进一步发展，提出以下建议：1）加强中心城区多中心组团发展，提升中心城区综合服务能力的同时，注重城关区、七里河区、安宁区、西固区四区协同发展。2）中心城区以外地区合理布局基础设施，适当增加金融保险、商务住宅和住宿服务等高附加值的服务，提高生活性服务业水平。</p>
+
+<p>本研究存在以下不足：生活性服务业种类覆盖不全，只挑选了相对重要的六类开展研究；POI数据只反映位置、数量和类别，缺少营业规模、使用情况等更加具体的数据；时间上，仅研究了2023年兰州市生活性服务业的空间格局，未研究其随时间演变的规律和趋势；空间上，仅研究了兰州市域生活性服务业的空间格局，未对兰州市中心城区进行深入细致的研究。</p>
+
+<h2 id="参考文献">参考文献</h2>
+
+<ol>
+  <li>冉钊,周国华,吴佳敏,等.基于POI数据的长沙市生活性服务业空间格局研究[J].世界地理研究,2019,28(03):163-172.</li>
+  <li>龙瀛,刘伦伦.新数据环境下定量城市研究的四个变革[J].国际城市规划,2017,32(01):64-73.</li>
+  <li>陈洪星,杨德刚,李江月,等.大数据视角下的商业中心和热点区分布特征及其影响因素分析——以乌鲁木齐主城区为例[J].地理科学进展,2020,39(05):738-750.</li>
+  <li>王娜,吴健生,彭子凤.基于多源大数据的深圳市生活性服务业空间格局及影响因素研究[J].热带地理,2021,41(05):956-967.DOI:10.13284/j.cnki.rddl.003381.</li>
+  <li>张家旗,刘晏男,宋斌玢.基于POI数据的郑州市主城区生活服务业空间分布特征研究[J].世界地理研究,2022,31(02):399-409.</li>
+  <li>许学强,周一星,宁越敏.城市地理学（第三版）[Z].高等教育出版社,2022.</li>
+  <li>August Lösch. Economics of Location[Z]. Yale University Press,1954.</li>
+  <li>Ernest W. Burgess. The Growth of the City: An Introduction to a Research Project[J]. Urban Ecology, Springer,2008.</li>
+  <li>François Perroux. Note sur la notion de “pôle de croissance”[J]. Économie appliquée Année,1955,8-1-2,307-320.</li>
+  <li>John Friedmann. Regional Development Policy: A Case Study of Venezuela[Z]. The MIT Press,1966.</li>
+  <li>Edward Louis Ullman. Geography as spatial interaction[Z]. University of Washington Press,1980.</li>
+  <li>Krugman, P. (1991). Increasing Returns and Economic Geography. Journal of Political Economy, 99(3), 483–499.</li>
+  <li>Coffey W J， Drolet R， Polese M. The intra-metropolitan location of high order services: Patterns，factors and mobility in Montreal. Papers in Regional Science，1996，75（3）：293-323.</li>
+  <li>Prayag G, Landré M and Ryan C. 2012. Restaurant Location in Hamilton, New Zealand: Clustering Patterns from 1996 to 2008. International Journal of Contemporary Hospitality Management, 24(3): 430-450.</li>
+  <li>Hans R.A. Koster, Ilias Pasidis, Jos van Ommeren. Shopping externalities and retail concentration: Evidence from dutch shopping streets [J]. Journal of Urban Economics, 2019,11(114): 103-194.</li>
+  <li>宁越敏.上海市区商业中心区位的探讨[J].地理学报,1984,(02):163-172.</li>
+  <li>吴郁文,谢彬,骆慈广,等.广州市城区零售商业企业区位布局的探讨[J].地理科学,1988,(03):208-217+295.</li>
+  <li>杨吾扬.北京市零售商业与服务业中心和网点的过去、现在和未来[J].地理学报,1994,(01):9-17.</li>
+  <li>浩飞龙,王士君,冯章献,等.基于POI数据的长春市商业空间格局及行业分布[J].地理研究,2018,37(02):366-378.</li>
+  <li>李卫东,张铭龙,段金龙.基于POI数据的南京市空间格局定量研究[J].世界地理研究,2020,29(02):317-326.</li>
+  <li>胡泷尹,靳诚.基于POI数据的城市餐饮业空间分布特征及便利性研究——以江苏省南京市为例[J].地理与地理信息科学,2024,40(06):78-86.</li>
+  <li>徐冬,黄震方,吕龙,等.基于POI挖掘的城市休闲旅游空间特征研究——以南京为例[J].地理与地理信息科学,2018,34(01):59-64+70+3.</li>
+  <li>许昕,赵媛.南京市养老服务设施空间分布格局及可达性评价——基于时间成本的两步移动搜索法[J].现代城市研究,2017,(02):2-11.</li>
+  <li>兰州市统计局.国家统计局兰州调查队.兰州统计年鉴2024[Z].中国统计出版社,2024.</li>
+</ol>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[基于POI数据的兰州市生活性服务业空间格局研究]]></summary></entry><entry><title type="html">L校资源预约系统渗透测试</title><link href="/blog/p/hack-in-lzu-cgyy/" rel="alternate" type="text/html" title="L校资源预约系统渗透测试" /><published>2025-04-26T10:48:00+08:00</published><updated>2025-04-26T10:48:00+08:00</updated><id>/blog/p/hack-in-lzu-cgyy</id><content type="html" xml:base="/blog/p/hack-in-lzu-cgyy/"><![CDATA[<blockquote>
   <p>Kein System ist sicher. （没有绝对安全的系统）</p>
 </blockquote>
 
@@ -457,48 +778,4 @@ crontab -e
 
 <h2 id="彩蛋哪里用到了x11-forwarding">（彩蛋）哪里用到了X11 Forwarding</h2>
 
-<p>前面的一篇<a href="/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh/">介绍X11转发</a>的博客说到因为要使用浏览器登录认证身份联网，所以需要用到X11转发，解决ssh连接使用图形程序的问题。实际在没有登录上校园网时，ssh也连接不上，自然也用不到X11转发，但是在调试过程为了确认<strong>不是因为浏览器版本导致界面显示不同而报错</strong>确实用到了X11转发。</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[校园网采用无感知认证，登录一次后自动添加MAC地址，下次登录可以直接连接。而有一次校园网不是很稳定，服务器断网了，我从校园网的控制界面下线了服务器，然后又手动重启（ 关闭 &amp; 打开 服务器的电源），这时候发现服务器还是连不上校园网，打开无感知认证一看，之前保存的服务器MAC地址清除了。以往为了添加这个MAC地址，需要去实验室借用显示器，打开图形界面，从浏览器里登录校园网进行认证，总之非常麻烦。所以当时后悔莫及，真是手欠，为什么要点那个下线呢。]]></summary></entry><entry><title type="html">使用X11转发做到SSH连接Linux打开图形程序</title><link href="/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh/" rel="alternate" type="text/html" title="使用X11转发做到SSH连接Linux打开图形程序" /><published>2025-01-07T19:41:00+08:00</published><updated>2025-01-07T19:41:00+08:00</updated><id>/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh</id><content type="html" xml:base="/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh/"><![CDATA[<p>假设你有一台没有显示器的机器（Linux系统），并且你只能通过SSH连接它。为了能够使用它，你认真学习了很多命令，然而就在你以为再也不需要什么图形界面的时候，你遇到了一个<strong>必须使用浏览器登录认证身份联网</strong>的问题（<del>等有空补上这篇博客</del> 👉 <a href="/blog/p/using-selenium-to-login-campus-network/">使用selenium模拟浏览器登录校园网</a>）。</p>
-
-<p>命令行再厉害，遇到浏览器，也只能认输，桌面才是最适合浏览器使用的环境。但是SSH怎么弄一个桌面出来？！</p>
-
-<h2 id="x11-forwarding">X11 Forwarding</h2>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X client (Linux) &lt;---&gt; X Server (Windows)
-</code></pre></div></div>
-
-<p>原理大概就是Linux上设置转发路径，将图形程序的数据转发给Windows显示。</p>
-
-<h2 id="linux设置display环境变量">Linux设置DISPLAY环境变量</h2>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export DISPLAY=192.168.23.46:0.0  # hostname填X Server的ip
-# export DISPLAY=hostname:display_number.screen_number
-</code></pre></div></div>
-
-<p>测试用的图形程序：</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Ubuntu/Debian
-sudo apt update
-sudo apt install x11-apps
-</code></pre></div></div>
-
-<h2 id="windows安装x-server">Windows安装X Server</h2>
-
-<p>推荐安装<a href="https://sourceforge.net/projects/xming/" target="_blank">Xming</a>（轻量且易用）</p>
-
-<p>安装过程可以根据需要选择性安装（例如：已经可以通过终端SSH登录就不需要再安装Putty了）</p>
-
-<p>安装完成后，<strong>不要直接打开Xming</strong>。打开XLaunch完成配置，它会自动打开Xming，运行服务器程序。</p>
-
-<p>配置XLaunch只需要注意勾选No Access Control，其他默认即可。</p>
-
-<figure>
-<img src="https://image.baidu.com/search/down?url=https://wx1.sinaimg.cn/large/008kbRJbly1hxcgv9ps7kj30ho0eg0vy.jpg" alt="XLaunch_config.jpg" />
-<figcaption>勾选No Access Control</figcaption>
-</figure>
-
-<h2 id="验证">验证</h2>
-
-<p>在设置好DISPLAY环境变量的Linux命令行界面运行X11图形测试程序</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xeyes
-</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[假设你有一台没有显示器的机器（Linux系统），并且你只能通过SSH连接它。为了能够使用它，你认真学习了很多命令，然而就在你以为再也不需要什么图形界面的时候，你遇到了一个必须使用浏览器登录认证身份联网的问题（等有空补上这篇博客 👉 使用selenium模拟浏览器登录校园网）。]]></summary></entry></feed>
+<p>前面的一篇<a href="/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh/">介绍X11转发</a>的博客说到因为要使用浏览器登录认证身份联网，所以需要用到X11转发，解决ssh连接使用图形程序的问题。实际在没有登录上校园网时，ssh也连接不上，自然也用不到X11转发，但是在调试过程为了确认<strong>不是因为浏览器版本导致界面显示不同而报错</strong>确实用到了X11转发。</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[校园网采用无感知认证，登录一次后自动添加MAC地址，下次登录可以直接连接。而有一次校园网不是很稳定，服务器断网了，我从校园网的控制界面下线了服务器，然后又手动重启（ 关闭 &amp; 打开 服务器的电源），这时候发现服务器还是连不上校园网，打开无感知认证一看，之前保存的服务器MAC地址清除了。以往为了添加这个MAC地址，需要去实验室借用显示器，打开图形界面，从浏览器里登录校园网进行认证，总之非常麻烦。所以当时后悔莫及，真是手欠，为什么要点那个下线呢。]]></summary></entry></feed>
