@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-06-02T17:24:34+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">本科毕业论文</title><link href="/blog/p/undergraduate-thesis/" rel="alternate" type="text/html" title="本科毕业论文" /><published>2025-06-02T10:20:00+08:00</published><updated>2025-06-02T10:20:00+08:00</updated><id>/blog/p/undergraduate-thesis</id><content type="html" xml:base="/blog/p/undergraduate-thesis/"><![CDATA[<h1 style="text-align: center; margin-bottom: 30px;"><strong>基于POI数据的兰州市生活性服务业空间格局研究</strong></h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-06-06T21:58:46+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">大学生福利（ CARSI 和 OSCA ）</title><link href="/blog/p/carsi-and-osca/" rel="alternate" type="text/html" title="大学生福利（ CARSI 和 OSCA ）" /><published>2025-06-06T21:10:00+08:00</published><updated>2025-06-06T21:10:00+08:00</updated><id>/blog/p/carsi-and-osca</id><content type="html" xml:base="/blog/p/carsi-and-osca/"><![CDATA[<p>刷qq群偶然发现了<a href="https://www.carsi.edu.cn/index.html" target="_blank">教育网联邦认证与资源共享基础设施CARSI</a>网站，里面有很多资源，登录学校账号可以看到学校购买的资源，还有一些免费可使用的资源。经过一番寻找，发现了<a href="https://ocloud.ihep.ac.cn/" target="_blank">OSCA联盟云存储</a>网站.</p>
+
+<p>osca 是一个提供云存储服务的联盟，可以简单理解为网盘，但是相比普通网盘有很多优势：</p>
+
+<ul>
+  <li>提供开放接口，可编程（所以也可以使用s3客户端）</li>
+  <li>容量大（大学生有1T空间）</li>
+  <li>速度快（至少比某些网盘快得多）</li>
+</ul>
+
+<p>下面简单介绍使用方法</p>
+
+<h2 id="awscli">awscli</h2>
+
+<p>笔者目前选择了轻量的awscli，安装方法推荐下载最新.zip包解压安装，参考<a href="https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/getting-started-install.html" target="_blank">amazon官网</a>.</p>
+
+<h2 id="配置">配置</h2>
+
+<p>然后使用 <code class="language-plaintext highlighter-rouge">aws configure</code> 命令进行配置，AWS Access Key ID 和 AWS Secret Access Key 最重要，填写osca网站给的AK和SK，Default region name 是AWS自己服务的服务器区域，可不填，Default output format 可填json.</p>
+
+<p>然后编辑config文件，加入 <code class="language-plaintext highlighter-rouge">endpoint_url = https://fgws3-ocloud.ihep.ac.cn</code></p>
+
+<p>然后使用 <code class="language-plaintext highlighter-rouge">aws configure set default.s3.signature_version s3v4</code> 命令配置签名，保证数据加密安全</p>
+
+<h2 id="使用">使用</h2>
+
+<p>查看osca的bucket</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">ls</span>
+</code></pre></div></div>
+
+<p>查看osca的bucket的文件和目录</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">ls </span>s3://bucket-name/
+</code></pre></div></div>
+
+<p>将本地文件移动到bucket</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">mv </span>local.txt s3://bucket-name/
+</code></pre></div></div>
+
+<p>将本地文件夹递归移动到bucket</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">mv</span> /local/dir/ s3://bucket-name/ <span class="nt">--recursive</span>
+</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[刷qq群偶然发现了教育网联邦认证与资源共享基础设施CARSI网站，里面有很多资源，登录学校账号可以看到学校购买的资源，还有一些免费可使用的资源。经过一番寻找，发现了OSCA联盟云存储网站.]]></summary></entry><entry><title type="html">本科毕业论文</title><link href="/blog/p/undergraduate-thesis/" rel="alternate" type="text/html" title="本科毕业论文" /><published>2025-06-02T10:20:00+08:00</published><updated>2025-06-02T10:20:00+08:00</updated><id>/blog/p/undergraduate-thesis</id><content type="html" xml:base="/blog/p/undergraduate-thesis/"><![CDATA[<h1 style="text-align: center; margin-bottom: 30px;"><strong>基于POI数据的兰州市生活性服务业空间格局研究</strong></h1>
 
 <p><strong>摘　要：</strong>生活性服务业是服务业经济中的重要组成部分，合理布局空间位置可以加快城市经济发展、提高人们生活水平。本文基于兰州市六类生活性服务业POI数据，运用核密度分析、熵指数、数值统计等方法研究兰州市生活性服务业的空间格局特征，结果发现：1）兰州市生活性服务业呈现“中心——外围”结构特征，中心多与区县政府所在地空间邻近；2）将兰州市行政区依据生活性服务业的密度和种类排名，最高为城关区，其次是七里河区、安宁区、西固区，最后是红古区、榆中县、皋兰县、永登县；3）高附加值的服务相对集中在兰州市中心城区，低附加值的服务则相对分散。<br /><strong>关键词：</strong>生活性服务业；空间格局；POI；兰州市</p>
 
@@ -704,78 +748,4 @@ gsettings reset org.gnome.desktop.interface font-name  # 重置回原来的字�
 
 <p>（昨天看了jyy的《操作系统》硬件篇，看到他在U盘上安装了Ubuntu，上课只需要带一个U盘，插在学校的windows电脑上就能运行，羡慕不已。于是今天下午突发奇想，下载了镜像，清空了U盘，开始操作。结果就是原来的系统和数据全都找不回来了…关于这次失误，应该是完全没意识到安装系统还要选位置…所以，操作系统也只是一个软件啊…）</p>
 
-<p>（还有一个教训就是：重要的数据或者代码需要备份！可以云备份尽量云备份，不方便上传到云上就在本地多个设备/磁盘进行备份）</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[坏消息：数据全没了（只有毕业论文做了备份😢]]></summary></entry><entry><title type="html">使用selenium模拟浏览器登录校园网</title><link href="/blog/p/using-selenium-to-login-campus-network/" rel="alternate" type="text/html" title="使用selenium模拟浏览器登录校园网" /><published>2025-01-09T10:49:00+08:00</published><updated>2025-01-09T10:49:00+08:00</updated><id>/blog/p/using-selenium-to-login-campus-network</id><content type="html" xml:base="/blog/p/using-selenium-to-login-campus-network/"><![CDATA[<p>校园网采用无感知认证，登录一次后自动添加MAC地址，下次登录可以直接连接。而有一次校园网不是很稳定，服务器断网了，我从校园网的控制界面下线了服务器，然后又手动重启（ <strong><code class="language-plaintext highlighter-rouge">关闭 &amp; 打开</code></strong> 服务器的电源），这时候发现服务器还是连不上校园网，打开无感知认证一看，之前保存的服务器MAC地址清除了。以往为了添加这个MAC地址，需要去实验室借用显示器，打开图形界面，从浏览器里登录校园网进行认证，总之非常麻烦。所以当时后悔莫及，真是手欠，为什么要点那个下线呢。</p>
-
-<p>因为不想再跑实验室借显示器打开图形界面从浏览器登录校园网认证，所以考虑通过命令行终端登录校园网的办法。</p>
-
-<p>还因为自己对网络知之甚少，抓包、逆向难度过高，所以果断选择使用selenium模拟浏览器登录的方法。</p>
-
-<p>借助GPT，使用selenium并不困难，相关代码已存档<a href="https://github.com/wuhulamb/lzu_net_login" target="_blank">GitHub</a>，这里主要讲讲调试过程。</p>
-
-<p>最大的问题是，如果服务器连接的是手机的热点与电脑通信，那一旦连校园网，ssh隧道就会断开，而脚本运行失败，就意味着服务器失联，然后又得手动重启（ <strong><code class="language-plaintext highlighter-rouge">关闭 &amp; 打开</code></strong> 服务器的电源）。没错，所以最后是<strong>连着校园网进行调试</strong>的。既然已经能连上校园网了为什么还要再折腾呢？为了<del>那个脚本程序不白写</del>学习使用selenium。（虽然也不全是自己写的[手动狗头]）</p>
-
-<p>总之，我抱着一定要在服务器上成功运行的坚定意志开始了我的调试。</p>
-
-<h2 id="windows上先跑起来">Windows上先跑起来</h2>
-
-<p>这里虽然和调试无关，却非常关键，一代目脚本诞生在这里。</p>
-
-<h2 id="linux上设置开机执行自定义脚本">Linux上设置开机执行自定义脚本</h2>
-
-<p>为了图简单，我用的是crontab。</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 编辑crontab
-crontab -e
-</code></pre></div></div>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 写入开机要执行的命令
-@reboot bash /path/to/script.sh
-</code></pre></div></div>
-
-<p>删除全部定时任务的命令是：</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>crontab -r
-</code></pre></div></div>
-
-<h2 id="重启-x-n次">重启 x N次</h2>
-
-<figure>
-<img src="https://image.baidu.com/search/down?url=https://wx3.sinaimg.cn/large/008kbRJbly1hxenv9x8qrj31fj0sa4ih.jpg" alt="lzu_net_test.jpg" />
-<figcaption>测试 x N次</figcaption>
-</figure>
-
-<p>这是调试花费时间最多的环节。每次重启完，我都会紧张又期待地看着校园网控制台，希望看到一台新机器的连入，但希望总是落空。然后，就去控制台把服务器MAC地址添加进来，等待服务器自动连接。（没错，无感知认证可以手动添加MAC地址，而我却仍然坚定地想让服务器模拟浏览器自动登录）</p>
-
-<p>当然，每次重启完，我都会去看脚本运行的日志，将报错记录扔给GPT，我也逐渐感觉到问题的所在。selenium模拟浏览器运行是通过一个驱动程序打开浏览器完成的，加载网页的时候，网页响应的时间往往比程序运行的时间长。这意味着有时候网页还没有发过来，程序已经往后运行了，而后面的程序是和网页相关的，它找不到网页就会报错。还有就是，selenium打开浏览器初始化速度比较慢，需要等待一段时间。</p>
-
-<p>所以，最后解决办法就是在Python代码中加入 <code class="language-plaintext highlighter-rouge">time.sleep()</code></p>
-
-<p>（调试过程中，我还曾在script.sh脚本中加入过 <code class="language-plaintext highlighter-rouge">sleep 30</code> ，结果影响到后面的Python代码运行了，日志文件完全没变？！后来就把sleep放到Python代码里面，然后就很成功地登录上了）</p>
-
-<figure>
-<img src="https://image.baidu.com/search/down?url=https://wx2.sinaimg.cn/large/008kbRJbly1hxenv9wa9hj31hc0scdtr.jpg" alt="lzu_net_py.jpg" />
-<figcaption>开机后脚本成功运行！</figcaption>
-</figure>
-
-<h2 id="补充arm64的linux下载安装chromedriver">（补充）ARM64的Linux下载安装chromedriver</h2>
-
-<p>chromedriver需要和本地的chrome版本匹配，下面附上官方不同版本的chromedriver下载地址：</p>
-
-<ul>
-  <li>版本在114及以下：<a href="http://chromedriver.storage.googleapis.com/index.html" target="_blank">http://chromedriver.storage.googleapis.com/index.html</a></li>
-  <li>最新版：<a href="https://googlechromelabs.github.io/chrome-for-testing/" target="_blank">https://googlechromelabs.github.io/chrome-for-testing/</a></li>
-  <li>GitHub：<a href="https://github.com/GoogleChromeLabs/chrome-for-testing" target="_blank">https://github.com/GoogleChromeLabs/chrome-for-testing</a></li>
-</ul>
-
-<p>但是很快我发现没有ARM64的版本（Linux64是x86_64的Linux），然后在<a href="https://github.com/electron/electron/releases" target="_blank">electron</a>找到了编译好的ARM64的chromedriver。</p>
-
-<p>Linux可以先查看一下chrome的版本：</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chromium-browser --version
-</code></pre></div></div>
-
-<p>然后在上述GitHub项目中寻找对应版本的chromedriver（没错，我就是一页一页往下翻看更新说明找到的！）</p>
-
-<h2 id="彩蛋哪里用到了x11-forwarding">（彩蛋）哪里用到了X11 Forwarding</h2>
-
-<p>前面的一篇<a href="/blog/p/using-x11-forwarding-to-open-GUI-program-via-ssh/">介绍X11转发</a>的博客说到因为要使用浏览器登录认证身份联网，所以需要用到X11转发，解决ssh连接使用图形程序的问题。实际在没有登录上校园网时，ssh也连接不上，自然也用不到X11转发，但是在调试过程为了确认<strong>不是因为浏览器版本导致界面显示不同而报错</strong>确实用到了X11转发。</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[校园网采用无感知认证，登录一次后自动添加MAC地址，下次登录可以直接连接。而有一次校园网不是很稳定，服务器断网了，我从校园网的控制界面下线了服务器，然后又手动重启（ 关闭 &amp; 打开 服务器的电源），这时候发现服务器还是连不上校园网，打开无感知认证一看，之前保存的服务器MAC地址清除了。以往为了添加这个MAC地址，需要去实验室借用显示器，打开图形界面，从浏览器里登录校园网进行认证，总之非常麻烦。所以当时后悔莫及，真是手欠，为什么要点那个下线呢。]]></summary></entry></feed>
+<p>（还有一个教训就是：重要的数据或者代码需要备份！可以云备份尽量云备份，不方便上传到云上就在本地多个设备/磁盘进行备份）</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[坏消息：数据全没了（只有毕业论文做了备份😢]]></summary></entry></feed>
