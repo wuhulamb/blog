@@ -61,7 +61,7 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>刷qq群偶然发现了<a href="https://www.carsi.edu.cn/index.html" target="_blank">教育网联邦认证与资源共享基础设施CARSI</a>网站，里面有很多资源，登录学校账号可以看到学校购买的资源，还有一些免费可使用的资源。经过一番寻找，发现了<a href="https://ocloud.ihep.ac.cn/" target="_blank">OSCA联盟云存储</a>网站.</p>
 
-<p>osca 是一个提供云存储服务的联盟，可以简单理解为网盘，但是相比普通网盘有很多优势：</p>
+<p>OSCA 是一个提供云存储服务的联盟，可以简单理解为网盘，但是相比普通网盘有很多优势：</p>
 
 <ul>
   <li>提供开放接口，可编程（所以也可以使用s3客户端）</li>
@@ -69,7 +69,7 @@
   <li>速度快（至少比某些网盘快得多）</li>
 </ul>
 
-<p>下面简单介绍使用方法</p>
+<p>下面简单介绍命令行使用方法.</p>
 
 <h2 id="awscli">awscli</h2>
 
@@ -103,6 +103,11 @@
 <p>将本地文件夹递归移动到bucket</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">mv</span> /local/dir/ s3://bucket-name/ <span class="nt">--recursive</span>
+</code></pre></div></div>
+
+<p>将本地文件夹同步到bucket，并排除子文件夹和单个文件</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">sync</span> /local/dir/ s3://bucket-name/dir/ <span class="nt">--exclude</span> <span class="s2">"/local/dir/subdir/*"</span> <span class="nt">--exclude</span> <span class="s2">"/local/dir/file"</span>
 </code></pre></div></div>
 
   </div><a class="u-url" href="/blog/p/carsi-and-osca/" hidden></a>

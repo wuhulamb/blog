@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-06-06T21:58:46+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">大学生福利（ CARSI 和 OSCA ）</title><link href="/blog/p/carsi-and-osca/" rel="alternate" type="text/html" title="大学生福利（ CARSI 和 OSCA ）" /><published>2025-06-06T21:10:00+08:00</published><updated>2025-06-06T21:10:00+08:00</updated><id>/blog/p/carsi-and-osca</id><content type="html" xml:base="/blog/p/carsi-and-osca/"><![CDATA[<p>刷qq群偶然发现了<a href="https://www.carsi.edu.cn/index.html" target="_blank">教育网联邦认证与资源共享基础设施CARSI</a>网站，里面有很多资源，登录学校账号可以看到学校购买的资源，还有一些免费可使用的资源。经过一番寻找，发现了<a href="https://ocloud.ihep.ac.cn/" target="_blank">OSCA联盟云存储</a>网站.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-06-07T11:00:49+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">大学生福利（ CARSI 和 OSCA ）</title><link href="/blog/p/carsi-and-osca/" rel="alternate" type="text/html" title="大学生福利（ CARSI 和 OSCA ）" /><published>2025-06-06T21:10:00+08:00</published><updated>2025-06-06T21:10:00+08:00</updated><id>/blog/p/carsi-and-osca</id><content type="html" xml:base="/blog/p/carsi-and-osca/"><![CDATA[<p>刷qq群偶然发现了<a href="https://www.carsi.edu.cn/index.html" target="_blank">教育网联邦认证与资源共享基础设施CARSI</a>网站，里面有很多资源，登录学校账号可以看到学校购买的资源，还有一些免费可使用的资源。经过一番寻找，发现了<a href="https://ocloud.ihep.ac.cn/" target="_blank">OSCA联盟云存储</a>网站.</p>
 
-<p>osca 是一个提供云存储服务的联盟，可以简单理解为网盘，但是相比普通网盘有很多优势：</p>
+<p>OSCA 是一个提供云存储服务的联盟，可以简单理解为网盘，但是相比普通网盘有很多优势：</p>
 
 <ul>
   <li>提供开放接口，可编程（所以也可以使用s3客户端）</li>
@@ -8,7 +8,7 @@
   <li>速度快（至少比某些网盘快得多）</li>
 </ul>
 
-<p>下面简单介绍使用方法</p>
+<p>下面简单介绍命令行使用方法.</p>
 
 <h2 id="awscli">awscli</h2>
 
@@ -42,6 +42,11 @@
 <p>将本地文件夹递归移动到bucket</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">mv</span> /local/dir/ s3://bucket-name/ <span class="nt">--recursive</span>
+</code></pre></div></div>
+
+<p>将本地文件夹同步到bucket，并排除子文件夹和单个文件</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">sync</span> /local/dir/ s3://bucket-name/dir/ <span class="nt">--exclude</span> <span class="s2">"/local/dir/subdir/*"</span> <span class="nt">--exclude</span> <span class="s2">"/local/dir/file"</span>
 </code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[刷qq群偶然发现了教育网联邦认证与资源共享基础设施CARSI网站，里面有很多资源，登录学校账号可以看到学校购买的资源，还有一些免费可使用的资源。经过一番寻找，发现了OSCA联盟云存储网站.]]></summary></entry><entry><title type="html">本科毕业论文</title><link href="/blog/p/undergraduate-thesis/" rel="alternate" type="text/html" title="本科毕业论文" /><published>2025-06-02T10:20:00+08:00</published><updated>2025-06-02T10:20:00+08:00</updated><id>/blog/p/undergraduate-thesis</id><content type="html" xml:base="/blog/p/undergraduate-thesis/"><![CDATA[<h1 style="text-align: center; margin-bottom: 30px;"><strong>基于POI数据的兰州市生活性服务业空间格局研究</strong></h1>
 
 <p><strong>摘　要：</strong>生活性服务业是服务业经济中的重要组成部分，合理布局空间位置可以加快城市经济发展、提高人们生活水平。本文基于兰州市六类生活性服务业POI数据，运用核密度分析、熵指数、数值统计等方法研究兰州市生活性服务业的空间格局特征，结果发现：1）兰州市生活性服务业呈现“中心——外围”结构特征，中心多与区县政府所在地空间邻近；2）将兰州市行政区依据生活性服务业的密度和种类排名，最高为城关区，其次是七里河区、安宁区、西固区，最后是红古区、榆中县、皋兰县、永登县；3）高附加值的服务相对集中在兰州市中心城区，低附加值的服务则相对分散。<br /><strong>关键词：</strong>生活性服务业；空间格局；POI；兰州市</p>
