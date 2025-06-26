@@ -105,7 +105,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">mv</span> /local/dir/ s3://bucket-name/ <span class="nt">--recursive</span>
 </code></pre></div></div>
 
-<p>将本地文件夹同步到bucket，并排除子文件夹和单个文件</p>
+<p>将本地文件夹 <strong>/local/dir/内的文件</strong> 同步到bucket的dir中，并排除子文件夹和单个文件</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 <span class="nb">sync</span> /local/dir/ s3://bucket-name/dir/ <span class="nt">--exclude</span> <span class="s2">"/local/dir/subdir/*"</span> <span class="nt">--exclude</span> <span class="s2">"/local/dir/file"</span>
 </code></pre></div></div>
