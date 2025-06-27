@@ -1,4 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-06-27T07:51:57+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">大学生福利（ CARSI 和 OSCA ）</title><link href="/blog/p/carsi-and-osca/" rel="alternate" type="text/html" title="大学生福利（ CARSI 和 OSCA ）" /><published>2025-06-06T21:10:00+08:00</published><updated>2025-06-06T21:10:00+08:00</updated><id>/blog/p/carsi-and-osca</id><content type="html" xml:base="/blog/p/carsi-and-osca/"><![CDATA[<p>刷qq群偶然发现了<a href="https://www.carsi.edu.cn/index.html" target="_blank">教育网联邦认证与资源共享基础设施CARSI</a>网站，里面有很多资源，登录学校账号可以看到学校购买的资源，还有一些免费可使用的资源。经过一番寻找，发现了<a href="https://ocloud.ihep.ac.cn/" target="_blank">OSCA联盟云存储</a>网站.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-06-27T19:26:52+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">安卓调试adb工具学习</title><link href="/blog/p/adb-tools/" rel="alternate" type="text/html" title="安卓调试adb工具学习" /><published>2025-06-27T17:00:00+08:00</published><updated>2025-06-27T17:00:00+08:00</updated><id>/blog/p/adb-tools</id><content type="html" xml:base="/blog/p/adb-tools/"><![CDATA[<p>ADB（Android Debug Bridge）是 Android SDK 中一个功能强大的命令行工具，用于与连接的 Android 设备（真机或模拟器）进行通信.</p>
+
+<p>可以在<a href="https://developer.android.com/tools/releases/platform-tools" target="_blank">这里</a>下载（需要科学上网）</p>
+
+<h2 id="安卓手机启用-usb-调试">安卓手机启用 USB 调试</h2>
+
+<p>在设备的<strong>设置</strong>中：</p>
+
+<ol>
+  <li>进入<strong>关于手机</strong>（或类似选项），连续点击<strong>版本号</strong>7次，直到看到“您现在是开发者！”的提示</li>
+  <li>返回设置主菜单，进入<strong>系统设置</strong>，找到新出现的<strong>开发者选项</strong>，在开发者选项中，启用 USB 调试</li>
+</ol>
+
+<h2 id="常用命令">常用命令</h2>
+
+<p>查看连接的安卓设备（安卓手机需启用 USB 调试）</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adb devices
+</code></pre></div></div>
+
+<p>在设备上启动一个交互式的命令行 Shell （ <code class="language-plaintext highlighter-rouge">ls</code> , <code class="language-plaintext highlighter-rouge">cd</code> , <code class="language-plaintext highlighter-rouge">rm</code> , <code class="language-plaintext highlighter-rouge">rmdir</code> 均可以使用）</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adb shell
+</code></pre></div></div>
+
+<p>在设备的 Shell 中执行单条命令 <command />，并将结果返回到电脑的命令行</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adb shell <span class="nb">rm</span> <span class="nt">-r</span> /sdcard/Download/
+</code></pre></div></div>
+
+<p>将设备 Camera 目录复制到电脑目录下（包括 Camera 目录本身）</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adb pull /sdcard/DCIM/Camera /home/user/Pictures/
+</code></pre></div></div>
+
+<p>将电脑上的文件或目录复制到设备</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adb push myfile.txt /sdcard/Download/
+</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[ADB（Android Debug Bridge）是 Android SDK 中一个功能强大的命令行工具，用于与连接的 Android 设备（真机或模拟器）进行通信.]]></summary></entry><entry><title type="html">大学生福利（ CARSI 和 OSCA ）</title><link href="/blog/p/carsi-and-osca/" rel="alternate" type="text/html" title="大学生福利（ CARSI 和 OSCA ）" /><published>2025-06-06T21:10:00+08:00</published><updated>2025-06-06T21:10:00+08:00</updated><id>/blog/p/carsi-and-osca</id><content type="html" xml:base="/blog/p/carsi-and-osca/"><![CDATA[<p>刷qq群偶然发现了<a href="https://www.carsi.edu.cn/index.html" target="_blank">教育网联邦认证与资源共享基础设施CARSI</a>网站，里面有很多资源，登录学校账号可以看到学校购买的资源，还有一些免费可使用的资源。经过一番寻找，发现了<a href="https://ocloud.ihep.ac.cn/" target="_blank">OSCA联盟云存储</a>网站.</p>
 
 <p>OSCA 是一个提供云存储服务的联盟，可以简单理解为网盘，但是相比普通网盘有很多优势：</p>
 
@@ -743,14 +781,4 @@ gsettings reset org.gnome.desktop.interface font-name  # 重置回原来的字�
 <p>刷新缓存后就可以在 <code class="language-plaintext highlighter-rouge">fc-list</code> 中找到下载的字体了。</p>
 
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fc-cache -fv  # -f选项强制重新生成最新的缓存文件；-v选项是显示任务进度
-</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[今天是使用Ubuntu的第一天，安装了很多东西，但花了最多时间去找安装的是字体？！]]></summary></entry><entry><title type="html">本想在U盘上安装Ubuntu，却错误地装在系统盘了…</title><link href="/blog/p/install-ubuntu-on-my-laptop-mistakenly/" rel="alternate" type="text/html" title="本想在U盘上安装Ubuntu，却错误地装在系统盘了…" /><published>2025-01-13T23:26:00+08:00</published><updated>2025-01-13T23:26:00+08:00</updated><id>/blog/p/install-ubuntu-on-my-laptop-mistakenly</id><content type="html" xml:base="/blog/p/install-ubuntu-on-my-laptop-mistakenly/"><![CDATA[<p>坏消息：数据全没了（只有毕业论文做了备份😢</p>
-
-<p>好消息：提前实现了有一台Linux笔记本的梦想</p>
-
-<p>现在觉得装系统最重要的选项是<strong>安装路径</strong>，其他都不重要（后面都可以改）。怎么当时就这么草率呢？？？！！！</p>
-
-<p>还有一个很麻烦的问题是Arcmap没有Linux版本，而QGIS不知道够不够用。（我的毕业论文还没完成，Arcmap就和我说再见了😢</p>
-
-<p>（昨天看了jyy的《操作系统》硬件篇，看到他在U盘上安装了Ubuntu，上课只需要带一个U盘，插在学校的windows电脑上就能运行，羡慕不已。于是今天下午突发奇想，下载了镜像，清空了U盘，开始操作。结果就是原来的系统和数据全都找不回来了…关于这次失误，应该是完全没意识到安装系统还要选位置…所以，操作系统也只是一个软件啊…）</p>
-
-<p>（还有一个教训就是：重要的数据或者代码需要备份！可以云备份尽量云备份，不方便上传到云上就在本地多个设备/磁盘进行备份）</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[坏消息：数据全没了（只有毕业论文做了备份😢]]></summary></entry></feed>
+</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[今天是使用Ubuntu的第一天，安装了很多东西，但花了最多时间去找安装的是字体？！]]></summary></entry></feed>
