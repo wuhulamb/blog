@@ -79,9 +79,21 @@
 
 <p>然后使用 <code class="language-plaintext highlighter-rouge">aws configure</code> 命令进行配置，AWS Access Key ID 和 AWS Secret Access Key 最重要，填写osca网站给的AK和SK，Default region name 是AWS自己服务的服务器区域，可不填，Default output format 可填json.</p>
 
-<p>然后编辑config文件，加入 <code class="language-plaintext highlighter-rouge">endpoint_url = https://fgws3-ocloud.ihep.ac.cn</code></p>
+<p>然后编辑config文件，加入 <code class="language-plaintext highlighter-rouge">endpoint_url = https://fgws3-ocloud.ihep.ac.cn</code> .</p>
 
-<p>然后使用 <code class="language-plaintext highlighter-rouge">aws configure set default.s3.signature_version s3v4</code> 命令配置签名，保证数据加密安全</p>
+<p>然后使用 <code class="language-plaintext highlighter-rouge">aws configure set default.s3.signature_version s3v4</code> 命令配置签名，保证数据加密安全.</p>
+
+<p>aws默认开启分块传输，由于不可知原因会出现超过8MB的文件使用 <code class="language-plaintext highlighter-rouge">aws s3 cp</code> 下载出现签名认证失败，可以通过调高配置 <code class="language-plaintext highlighter-rouge">multipart_threshold</code> 和 <code class="language-plaintext highlighter-rouge">multipart_chunksize</code> 解决（deepseek查看具体配置作用）。下面贴出笔者的配置文件（ <code class="language-plaintext highlighter-rouge">~/.aws/config</code> ）：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[default]
+output = json
+endpoint_url = https://fgws3-ocloud.ihep.ac.cn
+s3 =
+    signature_version = s3v4
+    multipart_threshold = 64MB
+    multipart_chunksize = 16MB
+    max_concurrent_requests = 8
+</code></pre></div></div>
 
 <h2 id="使用">使用</h2>
 
