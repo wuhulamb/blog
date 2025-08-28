@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-07-07T23:14:24+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">安卓调试工具（adb）学习</title><link href="/blog/p/adb-tools/" rel="alternate" type="text/html" title="安卓调试工具（adb）学习" /><published>2025-06-27T17:00:00+08:00</published><updated>2025-06-27T17:00:00+08:00</updated><id>/blog/p/adb-tools</id><content type="html" xml:base="/blog/p/adb-tools/"><![CDATA[<p>ADB（Android Debug Bridge）是 Android SDK 中一个功能强大的命令行工具，用于与连接的 Android 设备（真机或模拟器）进行通信.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-08-28T15:10:12+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">GitHub SSH git push✔️</title><link href="/blog/p/github-git-push/" rel="alternate" type="text/html" title="GitHub SSH git push✔️" /><published>2025-08-28T14:10:00+08:00</published><updated>2025-08-28T14:10:00+08:00</updated><id>/blog/p/github-git-push</id><content type="html" xml:base="/blog/p/github-git-push/"><![CDATA[<h2 id="背景">背景</h2>
+
+<p>国内因为特殊的网络环境访问GitHub网站总是不太稳定，但经过一些科学手段使流量中转后，访问会有很大改善。使用SSH方式的 <code class="language-plaintext highlighter-rouge">git push</code> 也经常时好时坏。如果遇到 <code class="language-plaintext highlighter-rouge">git push</code> 长时间不响应，之前笔者会更改网络环境，然后一般就可以成功push。可是从昨天到现在，笔者尝试了各种网络环境（家里的WIFI，手机流量，学校内网的代理，国外的代理）均以失败告终，然而当笔者登录国外的代理服务器尝试 <code class="language-plaintext highlighter-rouge">ssh -Tv git@github.com</code> 时却可以正常连接。限于笔者当前的水平，无法检查问题出现在网络连接的哪个环节。（可能是国内的github.com的22端口被封了）</p>
+
+<p>所以，GitHub上如何成功使用SSH方式的 <code class="language-plaintext highlighter-rouge">git push</code> 是这篇文章主要解决的问题。</p>
+
+<h2 id="解决办法">解决办法</h2>
+
+<p>编辑 <code class="language-plaintext highlighter-rouge">~/.ssh/config</code> 文件：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host github.com
+  User git 
+  Hostname ssh.github.com
+  Port 443 
+</code></pre></div></div>
+
+<p>上述文件的作用是使得通过SSH协议向github.com的22端口传输的流量，变为向ssh.github.com的443端口传输，以达到绕过端口封锁的限制。实际测试也可以将Port写为22，不过443似乎响应速度更快一些。</p>
+
+<p>由于443端口通常是HTTPS协议的端口，所以一般不会被封，可以放心使用~</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[背景]]></summary></entry><entry><title type="html">安卓调试工具（adb）学习</title><link href="/blog/p/adb-tools/" rel="alternate" type="text/html" title="安卓调试工具（adb）学习" /><published>2025-06-27T17:00:00+08:00</published><updated>2025-06-27T17:00:00+08:00</updated><id>/blog/p/adb-tools</id><content type="html" xml:base="/blog/p/adb-tools/"><![CDATA[<p>ADB（Android Debug Bridge）是 Android SDK 中一个功能强大的命令行工具，用于与连接的 Android 设备（真机或模拟器）进行通信.</p>
 
 <p>可以在<a href="https://developer.android.com/tools/releases/platform-tools" target="_blank">这里</a>下载（需要科学上网）</p>
 
@@ -758,39 +776,4 @@ gsettings reset org.gnome.desktop.interface font-name  # 重置回原来的字�
 
 <p>In a filesystem, a file is, conceptually, an address at which the contents of that file live. A hard link is an alternate address that indexes that data — accesses to the hard link and accesses to the original file are completely identical, in that they immediate yield the necessary data. A soft/symbolic link, instead, contains the original file name. When you access the symbolic link, Linux will realize that it is a symbolic link, read the original file name, and then (typically) automatically access that file. In most cases, both situations result in accessing the original data, but the mechanisms are different.</p>
 
-<p>Hard links sound simpler to most people (case in point, I explained it in one sentence above, versus two for soft links), but they have various downsides and implementation gotchas that make soft/symbolic links, by far, the more popular alternative.</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[链接是个好东西，可以把原文件link到一个链接上，通过链接可以读取原文件，也可以修改原文件。链接可以同步原文件的改动，即链接和原文件内容始终相同。以上的功能不区分软链接还是硬链接，是链接的基本属性。]]></summary></entry><entry><title type="html">使用Ubuntu的第一天是装…字体？</title><link href="/blog/p/first-day-of-using-ubuntu/" rel="alternate" type="text/html" title="使用Ubuntu的第一天是装…字体？" /><published>2025-01-14T21:12:00+08:00</published><updated>2025-01-14T21:12:00+08:00</updated><id>/blog/p/first-day-of-using-ubuntu</id><content type="html" xml:base="/blog/p/first-day-of-using-ubuntu/"><![CDATA[<p>今天是使用Ubuntu的第一天，安装了很多东西，但花了最多时间去<del>找</del>安装的是字体？！</p>
-
-<p>Ubuntu上已经预安装了许多开源字体（以<a href="https://en.wikipedia.org/wiki/Noto_fonts" target="_blank">Noto</a>为最多），但是当下载完WPS打开前段时间做的PPT时，看到了一大片豆腐块状东西…（而且打开WPS的时候报错了！</p>
-
-<p>（可以使用 <code class="language-plaintext highlighter-rouge">fc-list</code> 命令查看已经安装的字体文件，也可以在Ubuntu的搜索界面搜 Fonts ，用图形界面查看）</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fc-list | less
-</code></pre></div></div>
-
-<h2 id="下载">下载</h2>
-
-<p>然后我就在互联网上四处奔波找字体文件，在GitHub上找到了<a href="https://github.com/dv-anomaly/ttf-wps-fonts" target="_blank">ttf-wps-fonts</a>和<a href="https://github.com/adobe-fonts" target="_blank">Adobe Fonts</a>，<del><a href="https://packages.debian.org/sid/fonts/ttf-mscorefonts-installer" target="_blank">微软的英文字体包 ttf-mscorefonts-installer</a>可以使用apt安装</del>（ <code class="language-plaintext highlighter-rouge">ttf-mscorefonts-installer</code> 这个包很长时间没有更新了，遇到缺少的字体还是直接Google吧）</p>
-
-<p>微软的中文字体没有找到打包好的，就得自己去网上一个一个搜了（不过也可以找一台windows薅下来</p>
-
-<p>（1月15日：又在Github上找到了一个<a href="https://github.com/zyh1102/fonts" target="_blank">有很多商业字体文件的仓库</a>，里面有方正粗黑宋简体[FZCHSJW.TTF]）</p>
-
-<h2 id="安装">安装</h2>
-
-<p>使用 <code class="language-plaintext highlighter-rouge">apt install</code> 的字体文件就不用管啦，后面刷新一下就可以了，下面主要针对自己下载的字体文件，介绍如何安装。</p>
-
-<p>fontconfig会扫描特定目录，检查字体，如（ <code class="language-plaintext highlighter-rouge">/usr/share/fonts/</code> 和 <code class="language-plaintext highlighter-rouge">/home/user/.fonts/</code> 等，可以使用下面的命令查看有哪些目录：</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fc-cache -v | less
-</code></pre></div></div>
-
-<p>这些目录都可以放字体文件，或者放子目录。我是把零散下载的字体文件放在了 <code class="language-plaintext highlighter-rouge">/home/user/.fonts/</code> 这里，把 ttf-wps-fonts 放到了 <code class="language-plaintext highlighter-rouge">/usr/share/fonts/wps-office/</code> 这里（新建了 wps-office 文件夹）</p>
-
-<p><code class="language-plaintext highlighter-rouge">/home/user/.fonts/</code> 只能user用户使用， <code class="language-plaintext highlighter-rouge">/usr/share/fonts/wps-office/</code> 为系统所有用户可用（不过作为个人PC的单用户使用似乎影响不大？）</p>
-
-<h2 id="刷新缓存">刷新缓存</h2>
-
-<p>刷新缓存后就可以在 <code class="language-plaintext highlighter-rouge">fc-list</code> 中找到下载的字体了。</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fc-cache -fv  # -f选项强制重新生成最新的缓存文件；-v选项是显示任务进度
-</code></pre></div></div>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[今天是使用Ubuntu的第一天，安装了很多东西，但花了最多时间去找安装的是字体？！]]></summary></entry></feed>
+<p>Hard links sound simpler to most people (case in point, I explained it in one sentence above, versus two for soft links), but they have various downsides and implementation gotchas that make soft/symbolic links, by far, the more popular alternative.</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[链接是个好东西，可以把原文件link到一个链接上，通过链接可以读取原文件，也可以修改原文件。链接可以同步原文件的改动，即链接和原文件内容始终相同。以上的功能不区分软链接还是硬链接，是链接的基本属性。]]></summary></entry></feed>

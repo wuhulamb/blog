@@ -3,17 +3,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Category | wuhulamb’s blog</title>
+<title>GitHub SSH git push✔️ | wuhulamb’s blog</title>
 <meta name="generator" content="Jekyll v4.3.3" />
-<meta property="og:title" content="Category" />
+<meta property="og:title" content="GitHub SSH git push✔️" />
 <meta name="author" content="wuhulamb" />
 <meta property="og:locale" content="en_US" />
+<meta name="description" content="背景" />
+<meta property="og:description" content="背景" />
 <meta property="og:site_name" content="wuhulamb’s blog" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-08-28T14:10:00+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Category" />
+<meta property="twitter:title" content="GitHub SSH git push✔️" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"wuhulamb"},"headline":"Category","url":"/blog/category/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"wuhulamb"},"dateModified":"2025-08-28T14:10:00+08:00","datePublished":"2025-08-28T14:10:00+08:00","description":"背景","headline":"GitHub SSH git push✔️","mainEntityOfPage":{"@type":"WebPage","@id":"/blog/p/github-git-push/"},"url":"/blog/p/github-git-push/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/blog/feed.xml" title="wuhulamb&apos;s blog" />
 
@@ -44,147 +47,39 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">Category</h1>
+    <h1 class="post-title p-name" itemprop="name headline">GitHub SSH git push✔️</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2025-08-28T14:10:00+08:00" itemprop="datePublished">
+        2025-08-28
+      </time>
+				| <span><a href="/blog/category/computer/">计算机</a></span>
+				</p>
   </header>
 
-  <div class="post-content">
-    <ul>
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="背景">背景</h2>
 
-  
-  
+<p>国内因为特殊的网络环境访问GitHub网站总是不太稳定，但经过一些科学手段使流量中转后，访问会有很大改善。使用SSH方式的 <code class="language-plaintext highlighter-rouge">git push</code> 也经常时好时坏。如果遇到 <code class="language-plaintext highlighter-rouge">git push</code> 长时间不响应，之前笔者会更改网络环境，然后一般就可以成功push。可是从昨天到现在，笔者尝试了各种网络环境（家里的WIFI，手机流量，学校内网的代理，国外的代理）均以失败告终，然而当笔者登录国外的代理服务器尝试 <code class="language-plaintext highlighter-rouge">ssh -Tv git@github.com</code> 时却可以正常连接。限于笔者当前的水平，无法检查问题出现在网络连接的哪个环节。（可能是国内的github.com的22端口被封了）</p>
 
-  
-  
+<p>所以，GitHub上如何成功使用SSH方式的 <code class="language-plaintext highlighter-rouge">git push</code> 是这篇文章主要解决的问题。</p>
 
-  
-  
+<h2 id="解决办法">解决办法</h2>
 
-  
-  
+<p>编辑 <code class="language-plaintext highlighter-rouge">~/.ssh/config</code> 文件：</p>
 
-  
-  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host github.com
+  User git 
+  Hostname ssh.github.com
+  Port 443 
+</code></pre></div></div>
 
-  
-  
+<p>上述文件的作用是使得通过SSH协议向github.com的22端口传输的流量，变为向ssh.github.com的443端口传输，以达到绕过端口封锁的限制。实际测试也可以将Port写为22，不过443似乎响应速度更快一些。</p>
 
-  
-  
+<p>由于443端口通常是HTTPS协议的端口，所以一般不会被封，可以放心使用~</p>
 
-  
-  
-    
-    
-    
-<li>
-<a class="category-list-link" href="/blog/category/computer/">计算机</a>
-<span class="category-list-count">17</span>
-
-
-
-
-
-<ul>
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      
-      
-<li>
-<a class="category-list-link" href="/blog/category/computer/ubuntu/">Ubuntu折腾小记</a>
-<span class="category-list-count">4</span>
-</li>
-    
-  
-    
-      
-      
-<li>
-<a class="category-list-link" href="/blog/category/computer/blog/">blog搭建</a>
-<span class="category-list-count">1</span>
-</li>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-</ul>
-
-
-
-</li>
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-    
-    
-    
-<li>
-<a class="category-list-link" href="/blog/category/others/">others</a>
-<span class="category-list-count">6</span>
-
-
-
-
-
-
-
-</li>
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-</ul>
-
-  </div>
-
+  </div><a class="u-url" href="/blog/p/github-git-push/" hidden></a>
 </article>
 
       </div>
