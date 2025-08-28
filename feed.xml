@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-08-28T15:10:12+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">GitHub SSH git push✔️</title><link href="/blog/p/github-git-push/" rel="alternate" type="text/html" title="GitHub SSH git push✔️" /><published>2025-08-28T14:10:00+08:00</published><updated>2025-08-28T14:10:00+08:00</updated><id>/blog/p/github-git-push</id><content type="html" xml:base="/blog/p/github-git-push/"><![CDATA[<h2 id="背景">背景</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-08-28T15:21:09+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">GitHub SSH git push✔️</title><link href="/blog/p/github-git-push/" rel="alternate" type="text/html" title="GitHub SSH git push✔️" /><published>2025-08-28T14:10:00+08:00</published><updated>2025-08-28T14:10:00+08:00</updated><id>/blog/p/github-git-push</id><content type="html" xml:base="/blog/p/github-git-push/"><![CDATA[<h2 id="背景">背景</h2>
 
 <p>国内因为特殊的网络环境访问GitHub网站总是不太稳定，但经过一些科学手段使流量中转后，访问会有很大改善。使用SSH方式的 <code class="language-plaintext highlighter-rouge">git push</code> 也经常时好时坏。如果遇到 <code class="language-plaintext highlighter-rouge">git push</code> 长时间不响应，之前笔者会更改网络环境，然后一般就可以成功push。可是从昨天到现在，笔者尝试了各种网络环境（家里的WIFI，手机流量，学校内网的代理，国外的代理）均以失败告终，然而当笔者登录国外的代理服务器尝试 <code class="language-plaintext highlighter-rouge">ssh -Tv git@github.com</code> 时却可以正常连接。限于笔者当前的水平，无法检查问题出现在网络连接的哪个环节。（可能是国内的github.com的22端口被封了）</p>
 
@@ -10,7 +10,7 @@
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host github.com
   User git 
-  Hostname ssh.github.com
+  HostName ssh.github.com
   Port 443 
 </code></pre></div></div>
 
