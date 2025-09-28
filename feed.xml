@@ -1,4 +1,118 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-08-28T15:21:09+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">GitHub SSH git push✔️</title><link href="/blog/p/github-git-push/" rel="alternate" type="text/html" title="GitHub SSH git push✔️" /><published>2025-08-28T14:10:00+08:00</published><updated>2025-08-28T14:10:00+08:00</updated><id>/blog/p/github-git-push</id><content type="html" xml:base="/blog/p/github-git-push/"><![CDATA[<h2 id="背景">背景</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-09-28T19:37:18+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">Python 字符编码与转换笔记</title><link href="/blog/p/python-encode/" rel="alternate" type="text/html" title="Python 字符编码与转换笔记" /><published>2025-09-28T19:00:00+08:00</published><updated>2025-09-28T19:00:00+08:00</updated><id>/blog/p/python-encode</id><content type="html" xml:base="/blog/p/python-encode/"><![CDATA[<blockquote>
+  <p>本篇给出python的几个和编码相关的函数，然后经由AI整理创作。推荐完成<a href="https://pwn.college/fundamentals/data-dealings/" target="_blank">pwn.college [Dealing with Data]</a>练习。</p>
+</blockquote>
+
+<h2 id="一字符串与字节串的相互转换">一、字符串与字节串的相互转换</h2>
+
+<h3 id="1-字符串编码为字节串">1. 字符串编码为字节串</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 将字符串编码为指定编码的字节串
+</span><span class="n">text</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello 世界</span><span class="sh">"</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># b'Hello \xe4\xb8\x96\xe7\x95\x8c'
+</span></code></pre></div></div>
+
+<h3 id="2-字节串解码为字符串">2. 字节串解码为字符串</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 将字节串解码为字符串
+</span><span class="n">bytes_data</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">'</span><span class="s">Hello </span><span class="se">\xe4\xb8\x96</span><span class="s">\xxe7</span><span class="se">\x95\x8c</span><span class="sh">'</span>
+<span class="n">decoded</span> <span class="o">=</span> <span class="n">bytes_data</span><span class="p">.</span><span class="nf">decode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># "Hello 世界"
+</span></code></pre></div></div>
+
+<h2 id="二数值与字节串的转换">二、数值与字节串的转换</h2>
+
+<h3 id="1-十六进制字符串与字节串">1. 十六进制字符串与字节串</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 十六进制字符串转字节串
+</span><span class="n">hex_str</span> <span class="o">=</span> <span class="sh">"</span><span class="s">48656c6c6f</span><span class="sh">"</span>
+<span class="n">bytes_data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">.</span><span class="nf">fromhex</span><span class="p">(</span><span class="n">hex_str</span><span class="p">)</span>  <span class="c1"># b'Hello'
+</span>
+<span class="c1"># 字节串转十六进制字符串
+</span><span class="n">hex_result</span> <span class="o">=</span> <span class="n">bytes_data</span><span class="p">.</span><span class="nf">hex</span><span class="p">()</span>  <span class="c1"># '48656c6c6f'
+</span></code></pre></div></div>
+
+<h3 id="2-整数与字节串的转换">2. 整数与字节串的转换</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 整数转字节串
+</span><span class="n">num</span> <span class="o">=</span> <span class="mi">12345</span>
+<span class="n">bytes_data</span> <span class="o">=</span> <span class="n">num</span><span class="p">.</span><span class="nf">to_bytes</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="sh">'</span><span class="s">big</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># b'09'
+</span>
+<span class="c1"># 字节串转整数
+</span><span class="n">result</span> <span class="o">=</span> <span class="nb">int</span><span class="p">.</span><span class="nf">from_bytes</span><span class="p">(</span><span class="n">bytes_data</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="sh">'</span><span class="s">big</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># 12345
+</span></code></pre></div></div>
+
+<h2 id="三数值的进制转换">三、数值的进制转换</h2>
+
+<h3 id="1-十进制转其他进制">1. 十进制转其他进制</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">num</span> <span class="o">=</span> <span class="mi">255</span>
+
+<span class="c1"># 转十六进制字符串
+</span><span class="n">hex_str</span> <span class="o">=</span> <span class="nf">hex</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>  <span class="c1"># '0xff'
+</span>
+<span class="c1"># 转二进制字符串
+</span><span class="n">bin_str</span> <span class="o">=</span> <span class="nf">bin</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>  <span class="c1"># '0b11111111'
+</span></code></pre></div></div>
+
+<h3 id="2-其他进制转十进制">2. 其他进制转十进制</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 自动识别进制（0o开头为8进制，0x开头为16进制，0b开头为2进制）
+</span><span class="n">num1</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="sh">'</span><span class="s">0xff</span><span class="sh">'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>     <span class="c1"># 255
+# 手动指定进制
+</span><span class="n">num2</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="sh">'</span><span class="s">ff</span><span class="sh">'</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>      <span class="c1"># 255
+</span><span class="n">num3</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="sh">'</span><span class="s">11111111</span><span class="sh">'</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># 255
+</span></code></pre></div></div>
+
+<h2 id="四base64编码">四、Base64编码</h2>
+
+<p><code class="language-plaintext highlighter-rouge">base64.b64encode</code>和<code class="language-plaintext highlighter-rouge">base64.b64decode</code>均是将字节串转为字节串</p>
+
+<h3 id="1-base64编码">1. Base64编码</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">base64</span>
+
+<span class="c1"># 字符串转Base64
+</span><span class="n">text</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Hello World</span><span class="sh">"</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64encode</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">))</span>  <span class="c1"># b'SGVsbG8gV29ybGQ='
+</span>
+<span class="c1"># 文件内容Base64编码
+</span><span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">file.txt</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">rb</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">file_encoded</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64encode</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="nf">read</span><span class="p">())</span>
+</code></pre></div></div>
+
+<h3 id="2-base64解码">2. Base64解码</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Base64解码为字符串
+</span><span class="n">decoded</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64decode</span><span class="p">(</span><span class="n">encoded</span><span class="p">).</span><span class="nf">decode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">)</span>  <span class="c1"># "Hello World"
+</span>
+<span class="c1"># Base64解码为文件
+</span><span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">'</span><span class="s">output.txt</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">wb</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">base64</span><span class="p">.</span><span class="nf">b64decode</span><span class="p">(</span><span class="n">file_encoded</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="五标准输出操作">五、标准输出操作</h2>
+
+<h3 id="1-文本模式输出">1. 文本模式输出</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+
+<span class="c1"># 输出字符串（自动编码）
+</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello World</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-二进制模式输出">2. 二进制模式输出</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 直接输出字节数据
+</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">.</span><span class="nb">buffer</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="sa">b</span><span class="sh">'</span><span class="s">Binary data</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="使用场景总结">使用场景总结</h2>
+
+<ol>
+  <li><strong>网络通信</strong>：使用<code class="language-plaintext highlighter-rouge">encode()/decode()</code>进行字符串和字节串转换</li>
+  <li><strong>文件操作</strong>：处理二进制文件时使用字节串操作</li>
+  <li><strong>数据序列化</strong>：Base64常用于编码二进制数据为文本格式</li>
+  <li><strong>底层数据处理</strong>：整数与字节串转换用于处理原始二进制数据</li>
+  <li><strong>调试和显示</strong>：hex()和bin()用于查看数据的内部表示</li>
+</ol>
+
+<h2 id="注意事项">注意事项</h2>
+
+<ul>
+  <li>编码解码时要确保使用相同的字符编码（推荐UTF-8）</li>
+  <li>处理二进制数据时注意字节序（big/little endian）</li>
+  <li>Base64编码会增加约33%的数据大小</li>
+  <li>文件操作时要明确区分文本模式和二进制模式</li>
+</ul>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[本篇给出python的几个和编码相关的函数，然后经由AI整理创作。推荐完成pwn.college [Dealing with Data]练习。]]></summary></entry><entry><title type="html">GitHub SSH git push✔️</title><link href="/blog/p/github-git-push/" rel="alternate" type="text/html" title="GitHub SSH git push✔️" /><published>2025-08-28T14:10:00+08:00</published><updated>2025-08-28T14:10:00+08:00</updated><id>/blog/p/github-git-push</id><content type="html" xml:base="/blog/p/github-git-push/"><![CDATA[<h2 id="背景">背景</h2>
 
 <p>国内因为特殊的网络环境访问GitHub网站总是不太稳定，但经过一些科学手段使流量中转后，访问会有很大改善。使用SSH方式的 <code class="language-plaintext highlighter-rouge">git push</code> 也经常时好时坏。如果遇到 <code class="language-plaintext highlighter-rouge">git push</code> 长时间不响应，之前笔者会更改网络环境，然后一般就可以成功push。可是从昨天到现在，笔者尝试了各种网络环境（家里的WIFI，手机流量，学校内网的代理，国外的代理）均以失败告终，然而当笔者登录国外的代理服务器尝试 <code class="language-plaintext highlighter-rouge">ssh -Tv git@github.com</code> 时却可以正常连接。限于笔者当前的水平，无法检查问题出现在网络连接的哪个环节。（可能是国内的github.com的22端口被封了）</p>
 
@@ -729,51 +843,4 @@ gsettings reset org.gnome.desktop.interface font-name  # 重置回原来的字�
 
 <p>洛奇和我们一样，都有难以坚持下去的时候，也许那句在别人眼中不算什么的 <strong>I made it!</strong> 却正是他继续前进的支持。（对了，洛奇在大喊 I made it! 前还会先喊一声 <strong>Adrian!</strong> [手动狗头]）</p>
 
-<p>再过两天就要过年了，提前祝大家新年快乐！</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[洛奇是一个拳击手，我没有看过他的比赛，但我看过他的电影。我很喜欢这个家伙。]]></summary></entry><entry><title type="html">ln创建链接请使用绝对路径！！！</title><link href="/blog/p/better-use-absolute-path-when-creating-links/" rel="alternate" type="text/html" title="ln创建链接请使用绝对路径！！！" /><published>2025-01-17T12:08:00+08:00</published><updated>2025-01-17T12:08:00+08:00</updated><id>/blog/p/better-use-absolute-path-when-creating-links</id><content type="html" xml:base="/blog/p/better-use-absolute-path-when-creating-links/"><![CDATA[<p>链接是个好东西，可以把原文件link到一个链接上，通过链接可以读取原文件，也可以修改原文件。链接可以同步原文件的改动，即链接和原文件内容始终相同。以上的功能不区分软链接还是硬链接，是链接的基本属性。</p>
-
-<h2 id="硬链接">硬链接</h2>
-
-<p>硬链接创建后，像是copy了原文件，地位和原文件相同，原文件被删除链接文件依然有内容，不同于copy的地方是硬链接是一个指向原文件在磁盘中地址的索引（即硬链接占用的磁盘空间是作为链接的空间，不是文件的空间）</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln /absolute/path/to/target /absolute/path/to/link
-</code></pre></div></div>
-
-<figure>
-<figcaption>target是原文件，link是要创建的链接文件</figcaption>
-</figure>
-
-<p>创建完链接，可以使用 <code class="language-plaintext highlighter-rouge">ls -l</code> 命令查看，如果正确创建（使用 <code class="language-plaintext highlighter-rouge">vim</code> 打开链接，如果是空白则创建失败），会看到链接文件大小和原文件大小相同（ls查看的是数据在磁盘的大小，原文件和硬链接都是一个指向磁盘数据的索引）</p>
-
-<h2 id="软链接">软链接</h2>
-
-<p>软链接像是windows桌面的快捷方式，作用是指向原文件，原文件被删除则链接文件失效。（与硬链接的区别是，软链接不指向磁盘中的数据，而是指向原文件）</p>
-
-<blockquote>
-  <p>Linux 中 file 是一个指向磁盘数据的索引， <code class="language-plaintext highlighter-rouge">rm file</code> 实际上只是删除了索引，并没有真正清空磁盘中的数据，所以才会有使用xx软件恢复误删数据的可能.</p>
-</blockquote>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s /absolute/path/to/target /absolute/path/to/link
-</code></pre></div></div>
-
-<figure>
-<figcaption>target是原文件，link是要创建的链接文件</figcaption> 
-</figure>
-
-<p>软链接的大小很小，同样可以用上述方法查看</p>
-
-<h2 id="请使用绝对路径创建链接">请使用绝对路径创建链接</h2>
-
-<p>如果 <code class="language-plaintext highlighter-rouge">ln</code> 命令创建链接失败了，那么请使用<strong>绝对路径</strong>吧🙃！（如果是权限问题，加上 <code class="language-plaintext highlighter-rouge">sudo</code> ）</p>
-
-<h2 id="（附）pwn.college关于硬链接与软链接的解释"><a href="https://pwn.college/linux-luminarium/commands/#challenges-header-12" target="_blank">（附）pwn.college关于硬链接与软链接的解释</a></h2>
-
-<p>Links come in two flavors: <em>hard</em> and <em>soft</em> (also known as <em>symbolic</em>) links. We’ll differentiate the two with an analogy:</p>
-
-<ul>
-  <li>A <strong>hard</strong> link is when you address your appartment using multiple addresses that all lead directly to the same place (e.g., Apt 2 vs Unit 2).</li>
-  <li>A <strong>soft</strong> link is when you move appartments and have the postal service automatically forward your mail from your old place to your new place.</li>
-</ul>
-
-<p>In a filesystem, a file is, conceptually, an address at which the contents of that file live. A hard link is an alternate address that indexes that data — accesses to the hard link and accesses to the original file are completely identical, in that they immediate yield the necessary data. A soft/symbolic link, instead, contains the original file name. When you access the symbolic link, Linux will realize that it is a symbolic link, read the original file name, and then (typically) automatically access that file. In most cases, both situations result in accessing the original data, but the mechanisms are different.</p>
-
-<p>Hard links sound simpler to most people (case in point, I explained it in one sentence above, versus two for soft links), but they have various downsides and implementation gotchas that make soft/symbolic links, by far, the more popular alternative.</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[链接是个好东西，可以把原文件link到一个链接上，通过链接可以读取原文件，也可以修改原文件。链接可以同步原文件的改动，即链接和原文件内容始终相同。以上的功能不区分软链接还是硬链接，是链接的基本属性。]]></summary></entry></feed>
+<p>再过两天就要过年了，提前祝大家新年快乐！</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[洛奇是一个拳击手，我没有看过他的比赛，但我看过他的电影。我很喜欢这个家伙。]]></summary></entry></feed>
