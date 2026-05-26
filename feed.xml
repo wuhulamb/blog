@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2025-12-22T12:35:53+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">Python 字符编码与转换笔记</title><link href="/blog/p/python-encode/" rel="alternate" type="text/html" title="Python 字符编码与转换笔记" /><published>2025-09-28T19:00:00+08:00</published><updated>2025-09-28T19:00:00+08:00</updated><id>/blog/p/python-encode</id><content type="html" xml:base="/blog/p/python-encode/"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2026-05-26T13:47:13+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">VICTORY BELONGS TO THE MOST TENACIOUS</title><link href="/blog/p/tenacious/" rel="alternate" type="text/html" title="VICTORY BELONGS TO THE MOST TENACIOUS" /><published>2026-05-26T13:15:00+08:00</published><updated>2026-05-26T13:15:00+08:00</updated><id>/blog/p/tenacious</id><content type="html" xml:base="/blog/p/tenacious/"><![CDATA[<p><a href="https://www.bilibili.com/video/BV19qiBYZE3f/?t=1161">纳达尔纪录片！网球史上最伟大的红土之王，竞技体育最不屈的斗士，战神不死！</a></p>
+
+<p><img src="/assets/img/tenacious.png" alt="tenacious.png" /></p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[纳达尔纪录片！网球史上最伟大的红土之王，竞技体育最不屈的斗士，战神不死！]]></summary></entry><entry><title type="html">Python 字符编码与转换笔记</title><link href="/blog/p/python-encode/" rel="alternate" type="text/html" title="Python 字符编码与转换笔记" /><published>2025-09-28T19:00:00+08:00</published><updated>2025-09-28T19:00:00+08:00</updated><id>/blog/p/python-encode</id><content type="html" xml:base="/blog/p/python-encode/"><![CDATA[<blockquote>
   <p>本篇给出python的几个和编码相关的函数，然后经由AI整理创作。推荐完成<a href="https://pwn.college/fundamentals/data-dealings/" target="_blank">pwn.college [Dealing with Data]</a>练习。</p>
 </blockquote>
 
@@ -833,14 +835,4 @@ gsettings reset org.gnome.desktop.interface font-name  # 重置回原来的字�
 
 <p>更多用法参见 <code class="language-plaintext highlighter-rouge">man gsettings</code></p>
 
-<p>然而其实 <code class="language-plaintext highlighter-rouge">gsettings</code> 配置的字体只是GNOME程序的界面，相较之下上文使用fontconfig配置文件的方法更加彻底，所有使用fontconfig的程序都会遵守该配置文件</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[正文]]></summary></entry><entry><title type="html">ROCKY</title><link href="/blog/p/rocky/" rel="alternate" type="text/html" title="ROCKY" /><published>2025-01-24T09:32:00+08:00</published><updated>2025-01-24T09:32:00+08:00</updated><id>/blog/p/rocky</id><content type="html" xml:base="/blog/p/rocky/"><![CDATA[<p>洛奇是一个拳击手，我没有看过他的比赛，但我看过他的电影。我很喜欢这个家伙。</p>
-
-<p><em>ROCKY</em> 一共有六部电影，很受大家喜欢。我只看了前四部，感觉都挺不错的。推荐观看前两部，前两部比较经典。</p>
-
-<p>其实像这种励志电影，大家在看之前就大概知道情节了。 <em>ROCKY</em> 的这几部电影的故事情节设定都是类似的，可是也不妨碍我们去看，毕竟看励志电影也不是为了看情节对吧。（我是 <em>ROCKY</em> 主题曲 <a href="https://www.bilibili.com/video/BV11a411c7jN/" target="_blank"><i>Gonna Fly Now</i></a> 带入的）</p>
-
-<p><em>ROCKY</em> 除了拼搏的 <strong>HARD</strong> ，还有一个细节很真实。当洛奇下定决心迎接挑战参加比赛，他每天凌晨四点起床，喝下五个生鸡蛋，然后出门跑步，而当他跑到了费城最高的地方（费城艺术博物馆）时，他会像个孩子一样开心地跳起来，他会大喊： <strong>I made it! I made it!</strong></p>
-
-<p>洛奇和我们一样，都有难以坚持下去的时候，也许那句在别人眼中不算什么的 <strong>I made it!</strong> 却正是他继续前进的支持。（对了，洛奇在大喊 I made it! 前还会先喊一声 <strong>Adrian!</strong> [手动狗头]）</p>
-
-<p>再过两天就要过年了，提前祝大家新年快乐！</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[洛奇是一个拳击手，我没有看过他的比赛，但我看过他的电影。我很喜欢这个家伙。]]></summary></entry></feed>
+<p>然而其实 <code class="language-plaintext highlighter-rouge">gsettings</code> 配置的字体只是GNOME程序的界面，相较之下上文使用fontconfig配置文件的方法更加彻底，所有使用fontconfig的程序都会遵守该配置文件</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[正文]]></summary></entry></feed>
