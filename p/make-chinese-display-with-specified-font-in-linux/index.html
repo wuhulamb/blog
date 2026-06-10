@@ -82,15 +82,24 @@
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE fontconfig SYSTEM "fonts.dtd"&gt;
 &lt;fontconfig&gt;
-    &lt;!-- 设置微软雅黑为回退字体 --&gt;
-    &lt;match&gt;
-        &lt;test name="family"&gt;
-            &lt;string&gt;sans-serif&lt;/string&gt;
-        &lt;/test&gt;
-        &lt;edit name="family" mode="append" binding="strong"&gt;
-            &lt;string&gt;Microsoft YaHei&lt;/string&gt;
-        &lt;/edit&gt;
-    &lt;/match&gt;
+    &lt;!-- 为无衬线字体设置首选中文字体 --&gt;
+    &lt;alias&gt;
+      &lt;family&gt;sans-serif&lt;/family&gt;
+      &lt;prefer&gt;
+        &lt;family&gt;Microsoft YaHei&lt;/family&gt;
+        &lt;family&gt;Noto Sans CJK SC&lt;/family&gt;
+      &lt;/prefer&gt;
+    &lt;/alias&gt;
+    &lt;!-- 设置等宽字体回退 --&gt;
+    &lt;alias&gt;
+        &lt;family&gt;monospace&lt;/family&gt;
+        &lt;prefer&gt;
+            &lt;family&gt;DejaVu Sans Mono&lt;/family&gt;
+            &lt;family&gt;WenQuanYi Zen Hei Mono&lt;/family&gt;
+            &lt;family&gt;Sarasa Mono CL&lt;/family&gt;
+            &lt;family&gt;Noto Sans Mono&lt;/family&gt;
+        &lt;/prefer&gt;
+    &lt;/alias&gt;
 &lt;/fontconfig&gt;
 </code></pre></div></div>
 

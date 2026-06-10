@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2026-05-26T14:00:35+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">VICTORY BELONGS TO THE MOST TENACIOUS</title><link href="/blog/p/tenacious/" rel="alternate" type="text/html" title="VICTORY BELONGS TO THE MOST TENACIOUS" /><published>2026-05-26T13:15:00+08:00</published><updated>2026-05-26T13:15:00+08:00</updated><id>/blog/p/tenacious</id><content type="html" xml:base="/blog/p/tenacious/"><![CDATA[<p><a href="https://www.bilibili.com/video/BV19qiBYZE3f/?t=1161">纳达尔纪录片！网球史上最伟大的红土之王，竞技体育最不屈的斗士，战神不死！</a></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2026-06-10T18:21:00+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">VICTORY BELONGS TO THE MOST TENACIOUS</title><link href="/blog/p/tenacious/" rel="alternate" type="text/html" title="VICTORY BELONGS TO THE MOST TENACIOUS" /><published>2026-05-26T13:15:00+08:00</published><updated>2026-05-26T13:15:00+08:00</updated><id>/blog/p/tenacious</id><content type="html" xml:base="/blog/p/tenacious/"><![CDATA[<p><a href="https://www.bilibili.com/video/BV19qiBYZE3f/?t=1161">纳达尔纪录片！网球史上最伟大的红土之王，竞技体育最不屈的斗士，战神不死！</a></p>
 
 <p><img src="/blog/assets/img/tenacious.png" alt="tenacious.png" /></p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="others" /><summary type="html"><![CDATA[纳达尔纪录片！网球史上最伟大的红土之王，竞技体育最不屈的斗士，战神不死！]]></summary></entry><entry><title type="html">Python 字符编码与转换笔记</title><link href="/blog/p/python-encode/" rel="alternate" type="text/html" title="Python 字符编码与转换笔记" /><published>2025-09-28T19:00:00+08:00</published><updated>2025-09-28T19:00:00+08:00</updated><id>/blog/p/python-encode</id><content type="html" xml:base="/blog/p/python-encode/"><![CDATA[<blockquote>
   <p>本篇给出python的几个和编码相关的函数，然后经由AI整理创作。推荐完成<a href="https://pwn.college/fundamentals/data-dealings/" target="_blank">pwn.college [Dealing with Data]</a>练习。</p>
@@ -812,15 +812,24 @@ $ sudo ln -s /opt/kingsoft/wps-office/office6/libfreetype.so.6.18.3 /opt/kingsof
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE fontconfig SYSTEM "fonts.dtd"&gt;
 &lt;fontconfig&gt;
-    &lt;!-- 设置微软雅黑为回退字体 --&gt;
-    &lt;match&gt;
-        &lt;test name="family"&gt;
-            &lt;string&gt;sans-serif&lt;/string&gt;
-        &lt;/test&gt;
-        &lt;edit name="family" mode="append" binding="strong"&gt;
-            &lt;string&gt;Microsoft YaHei&lt;/string&gt;
-        &lt;/edit&gt;
-    &lt;/match&gt;
+    &lt;!-- 为无衬线字体设置首选中文字体 --&gt;
+    &lt;alias&gt;
+      &lt;family&gt;sans-serif&lt;/family&gt;
+      &lt;prefer&gt;
+        &lt;family&gt;Microsoft YaHei&lt;/family&gt;
+        &lt;family&gt;Noto Sans CJK SC&lt;/family&gt;
+      &lt;/prefer&gt;
+    &lt;/alias&gt;
+    &lt;!-- 设置等宽字体回退 --&gt;
+    &lt;alias&gt;
+        &lt;family&gt;monospace&lt;/family&gt;
+        &lt;prefer&gt;
+            &lt;family&gt;DejaVu Sans Mono&lt;/family&gt;
+            &lt;family&gt;WenQuanYi Zen Hei Mono&lt;/family&gt;
+            &lt;family&gt;Sarasa Mono CL&lt;/family&gt;
+            &lt;family&gt;Noto Sans Mono&lt;/family&gt;
+        &lt;/prefer&gt;
+    &lt;/alias&gt;
 &lt;/fontconfig&gt;
 </code></pre></div></div>
 
