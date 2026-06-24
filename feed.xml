@@ -1,4 +1,435 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2026-06-17T20:47:41+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">何以硅谷：弗雷德·特曼与斯坦福研究园</title><link href="/blog/p/how-Silicon-Valley-came-to-be/" rel="alternate" type="text/html" title="何以硅谷：弗雷德·特曼与斯坦福研究园" /><published>2026-06-17T19:08:00+08:00</published><updated>2026-06-17T19:08:00+08:00</updated><id>/blog/p/how-Silicon-Valley-came-to-be</id><content type="html" xml:base="/blog/p/how-Silicon-Valley-came-to-be/"><![CDATA[<p><img src="/blog/assets/img/Silicon_valley_title.png" alt="Silicon_valley_title.png" /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="/blog/" rel="alternate" type="text/html" /><updated>2026-06-24T22:22:04+08:00</updated><id>/blog/feed.xml</id><title type="html">wuhulamb’s blog</title><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><entry><title type="html">你多我少：中国省际经济份额变动的历史轨迹（1952—2010）</title><link href="/blog/p/China-province-GDP-change/" rel="alternate" type="text/html" title="你多我少：中国省际经济份额变动的历史轨迹（1952—2010）" /><published>2026-06-24T20:38:00+08:00</published><updated>2026-06-24T20:38:00+08:00</updated><id>/blog/p/China-province-GDP-change</id><content type="html" xml:base="/blog/p/China-province-GDP-change/"><![CDATA[<p><img src="/blog/assets/img/China-province-GDP-change/literature.png" alt="China-province-GDP-change/literature.png" /></p>
+
+<p>本文研究1952—2010年中国各省（区、市）经济份额的动态变化。这里所指的经济份额，是指各省（区、市）GDP占全国GDP的比重。由于各省经济份额之和恒为100%，因此某一省份经济份额的提升必然对应其他省份经济份额的下降。本文关注的核心问题即为1952—2010年间中国各省（区、市）经济份额的时空演变特征。</p>
+
+<p>研究中需要特别关注阶段划分问题。阶段划分并非依据主观判断，而是采用有序样本聚类方法进行识别。当聚类数取k=8时，误差函数趋于稳定，因此最终将研究时段划分为8个阶段。实际操作过程中，需要结合多次聚类试验结果，并综合考虑重要历史事件和宏观经济背景，以保证阶段划分的合理性。</p>
+
+<p>在完成阶段划分后，首先计算各省（区、市）GDP占全国GDP的比重，并进一步测算各阶段经济份额的变化幅度，据此得到表1“分阶段中国各地区和各省（区、市）经济份额变动情况”。</p>
+
+<p>在此基础上，进一步将各省（区、市）经济份额变化分解为第一产业、第二产业和第三产业增加值的贡献，并依据三次产业对经济份额变化的贡献大小识别主导产业。具体判定规则如下：若仅有一个产业贡献为正，则该产业为单一驱动产业；若有两个产业贡献为正，且其中一个产业的贡献超过另一产业的3倍，则仍认定为单一驱动产业；若三个产业贡献均为正，且某一产业的贡献大于其余两个产业贡献之和，则该产业被认定为单一驱动产业；其余情形均归为复合产业驱动。</p>
+
+<p>本文的主要研究结果包括：（1）表1“分阶段中国各地区和各省（区、市）经济份额变动情况”；（2）图1“1952—2010年中国省（区、市）经济转移及其驱动产业”。</p>
+
+<h2 id="表1分阶段中国各地区和各省区经济份额变动情况">表1：分阶段中国各地区和各省区经济份额变动情况</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">地区</th>
+      <th style="text-align: center">1952~1958年</th>
+      <th style="text-align: center">1958~1960年</th>
+      <th style="text-align: center">1960~1966年</th>
+      <th style="text-align: center">1966~1980年</th>
+      <th style="text-align: center">1980~1986年</th>
+      <th style="text-align: center">1986~1992年</th>
+      <th style="text-align: center">1992~2001年</th>
+      <th style="text-align: center">2001~2010年</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>东部</strong></td>
+      <td style="text-align: center"><strong>-2.092</strong></td>
+      <td style="text-align: center"><strong>1.585</strong></td>
+      <td style="text-align: center"><strong>-0.594</strong></td>
+      <td style="text-align: center"><strong>2.736</strong></td>
+      <td style="text-align: center"><strong>1.074</strong></td>
+      <td style="text-align: center"><strong>3.687</strong></td>
+      <td style="text-align: center"><strong>5.466</strong></td>
+      <td style="text-align: center"><strong>-0.859</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">北京</td>
+      <td style="text-align: center">1.409</td>
+      <td style="text-align: center">1.022</td>
+      <td style="text-align: center">-1.065</td>
+      <td style="text-align: center">0.530</td>
+      <td style="text-align: center">-0.218</td>
+      <td style="text-align: center">-0.214</td>
+      <td style="text-align: center">0.688</td>
+      <td style="text-align: center">-0.191</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">天津</td>
+      <td style="text-align: center">0.449</td>
+      <td style="text-align: center">0.223</td>
+      <td style="text-align: center">-0.412</td>
+      <td style="text-align: center">0.021</td>
+      <td style="text-align: center">-0.342</td>
+      <td style="text-align: center">-0.432</td>
+      <td style="text-align: center">0.184</td>
+      <td style="text-align: center">0.344</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">河北</td>
+      <td style="text-align: center">-1.637</td>
+      <td style="text-align: center">-0.215</td>
+      <td style="text-align: center">0.041</td>
+      <td style="text-align: center">0.225</td>
+      <td style="text-align: center">-0.473</td>
+      <td style="text-align: center">0.414</td>
+      <td style="text-align: center">0.154</td>
+      <td style="text-align: center">-0.420</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">上海</td>
+      <td style="text-align: center">1.484</td>
+      <td style="text-align: center">2.780</td>
+      <td style="text-align: center">-2.791</td>
+      <td style="text-align: center">-0.317</td>
+      <td style="text-align: center">-2.028</td>
+      <td style="text-align: center">-0.786</td>
+      <td style="text-align: center">0.506</td>
+      <td style="text-align: center">-0.878</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">江苏</td>
+      <td style="text-align: center">-2.016</td>
+      <td style="text-align: center">-0.264</td>
+      <td style="text-align: center">0.947</td>
+      <td style="text-align: center">0.755</td>
+      <td style="text-align: center">0.433</td>
+      <td style="text-align: center">0.531</td>
+      <td style="text-align: center">0.480</td>
+      <td style="text-align: center">0.766</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">浙江</td>
+      <td style="text-align: center">-0.585</td>
+      <td style="text-align: center">-0.359</td>
+      <td style="text-align: center">0.423</td>
+      <td style="text-align: center">0.636</td>
+      <td style="text-align: center">1.111</td>
+      <td style="text-align: center">0.106</td>
+      <td style="text-align: center">1.057</td>
+      <td style="text-align: center">-0.015</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">福建</td>
+      <td style="text-align: center">-0.172</td>
+      <td style="text-align: center">0.009</td>
+      <td style="text-align: center">0.005</td>
+      <td style="text-align: center">0.073</td>
+      <td style="text-align: center">0.323</td>
+      <td style="text-align: center">0.727</td>
+      <td style="text-align: center">0.731</td>
+      <td style="text-align: center">-0.384</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">山东</td>
+      <td style="text-align: center">-1.448</td>
+      <td style="text-align: center">-1.080</td>
+      <td style="text-align: center">1.209</td>
+      <td style="text-align: center">0.857</td>
+      <td style="text-align: center">1.036</td>
+      <td style="text-align: center">0.796</td>
+      <td style="text-align: center">0.003</td>
+      <td style="text-align: center">0.490</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">广东</td>
+      <td style="text-align: center">0.423</td>
+      <td style="text-align: center">-0.531</td>
+      <td style="text-align: center">1.049</td>
+      <td style="text-align: center">-0.044</td>
+      <td style="text-align: center">1.232</td>
+      <td style="text-align: center">2.544</td>
+      <td style="text-align: center">1.664</td>
+      <td style="text-align: center">-0.570</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>中部</strong></td>
+      <td style="text-align: center"><strong>-0.400</strong></td>
+      <td style="text-align: center"><strong>-1.403</strong></td>
+      <td style="text-align: center"><strong>1.308</strong></td>
+      <td style="text-align: center"><strong>-0.895</strong></td>
+      <td style="text-align: center"><strong>0.350</strong></td>
+      <td style="text-align: center"><strong>-2.325</strong></td>
+      <td style="text-align: center"><strong>-1.295</strong></td>
+      <td style="text-align: center"><strong>0.630</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">山西</td>
+      <td style="text-align: center">0.475</td>
+      <td style="text-align: center">0.162</td>
+      <td style="text-align: center">-0.281</td>
+      <td style="text-align: center">-0.478</td>
+      <td style="text-align: center">-0.042</td>
+      <td style="text-align: center">-0.309</td>
+      <td style="text-align: center">-0.256</td>
+      <td style="text-align: center">0.236</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">安徽</td>
+      <td style="text-align: center">0.278</td>
+      <td style="text-align: center">-0.145</td>
+      <td style="text-align: center">-0.297</td>
+      <td style="text-align: center">-0.345</td>
+      <td style="text-align: center">0.756</td>
+      <td style="text-align: center">-0.876</td>
+      <td style="text-align: center">-0.098</td>
+      <td style="text-align: center">-0.165</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">江西</td>
+      <td style="text-align: center">-0.639</td>
+      <td style="text-align: center">-0.054</td>
+      <td style="text-align: center">0.507</td>
+      <td style="text-align: center">-0.347</td>
+      <td style="text-align: center">-0.142</td>
+      <td style="text-align: center">-0.181</td>
+      <td style="text-align: center">-0.204</td>
+      <td style="text-align: center">0.158</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">河南</td>
+      <td style="text-align: center">-1.142</td>
+      <td style="text-align: center">-0.464</td>
+      <td style="text-align: center">0.282</td>
+      <td style="text-align: center">0.681</td>
+      <td style="text-align: center">-0.011</td>
+      <td style="text-align: center">-0.270</td>
+      <td style="text-align: center">0.164</td>
+      <td style="text-align: center">0.185</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">湖北</td>
+      <td style="text-align: center">0.803</td>
+      <td style="text-align: center">-0.686</td>
+      <td style="text-align: center">0.898</td>
+      <td style="text-align: center">-0.451</td>
+      <td style="text-align: center">0.037</td>
+      <td style="text-align: center">-0.379</td>
+      <td style="text-align: center">-0.624</td>
+      <td style="text-align: center">0.077</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">湖南</td>
+      <td style="text-align: center">-0.175</td>
+      <td style="text-align: center">-0.216</td>
+      <td style="text-align: center">0.198</td>
+      <td style="text-align: center">0.044</td>
+      <td style="text-align: center">-0.249</td>
+      <td style="text-align: center">-0.310</td>
+      <td style="text-align: center">-0.276</td>
+      <td style="text-align: center">0.139</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>西部</strong></td>
+      <td style="text-align: center"><strong>0.690</strong></td>
+      <td style="text-align: center"><strong>-2.832</strong></td>
+      <td style="text-align: center"><strong>2.416</strong></td>
+      <td style="text-align: center"><strong>-0.575</strong></td>
+      <td style="text-align: center"><strong>-0.511</strong></td>
+      <td style="text-align: center"><strong>-0.127</strong></td>
+      <td style="text-align: center"><strong>-2.344</strong></td>
+      <td style="text-align: center"><strong>1.373</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">内蒙古</td>
+      <td style="text-align: center">0.210</td>
+      <td style="text-align: center">0.171</td>
+      <td style="text-align: center">-0.077</td>
+      <td style="text-align: center">-0.723</td>
+      <td style="text-align: center">0.324</td>
+      <td style="text-align: center">-0.254</td>
+      <td style="text-align: center">-0.047</td>
+      <td style="text-align: center">1.096</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">广西</td>
+      <td style="text-align: center">-0.175</td>
+      <td style="text-align: center">-0.223</td>
+      <td style="text-align: center">0.200</td>
+      <td style="text-align: center">0.335</td>
+      <td style="text-align: center">-0.089</td>
+      <td style="text-align: center">0.369</td>
+      <td style="text-align: center">-0.395</td>
+      <td style="text-align: center">0.089</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">重庆</td>
+      <td style="text-align: center">-0.247</td>
+      <td style="text-align: center">-0.213</td>
+      <td style="text-align: center">-0.172</td>
+      <td style="text-align: center">-0.340</td>
+      <td style="text-align: center">-0.167</td>
+      <td style="text-align: center">-0.143</td>
+      <td style="text-align: center">0.007</td>
+      <td style="text-align: center">0.187</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">四川</td>
+      <td style="text-align: center">0.845</td>
+      <td style="text-align: center">-2.234</td>
+      <td style="text-align: center">1.794</td>
+      <td style="text-align: center">0.827</td>
+      <td style="text-align: center">-0.479</td>
+      <td style="text-align: center">-0.203</td>
+      <td style="text-align: center">-0.586</td>
+      <td style="text-align: center">-0.025</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">贵州</td>
+      <td style="text-align: center">0.195</td>
+      <td style="text-align: center">-0.106</td>
+      <td style="text-align: center">-0.004</td>
+      <td style="text-align: center">-0.101</td>
+      <td style="text-align: center">0.073</td>
+      <td style="text-align: center">-0.134</td>
+      <td style="text-align: center">-0.268</td>
+      <td style="text-align: center">0.009</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">云南</td>
+      <td style="text-align: center">-0.109</td>
+      <td style="text-align: center">-0.167</td>
+      <td style="text-align: center">0.528</td>
+      <td style="text-align: center">-0.245</td>
+      <td style="text-align: center">-0.032</td>
+      <td style="text-align: center">0.502</td>
+      <td style="text-align: center">-0.417</td>
+      <td style="text-align: center">-0.319</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">西藏</td>
+      <td style="text-align: center">-0.082</td>
+      <td style="text-align: center">0.031</td>
+      <td style="text-align: center">0.046</td>
+      <td style="text-align: center">-0.012</td>
+      <td style="text-align: center">-0.022</td>
+      <td style="text-align: center">-0.047</td>
+      <td style="text-align: center">0.000</td>
+      <td style="text-align: center">-0.012</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">陕西</td>
+      <td style="text-align: center">0.326</td>
+      <td style="text-align: center">0.056</td>
+      <td style="text-align: center">-0.061</td>
+      <td style="text-align: center">-0.245</td>
+      <td style="text-align: center">-0.004</td>
+      <td style="text-align: center">-0.106</td>
+      <td style="text-align: center">-0.198</td>
+      <td style="text-align: center">0.465</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">甘肃</td>
+      <td style="text-align: center">-0.391</td>
+      <td style="text-align: center">-0.628</td>
+      <td style="text-align: center">0.294</td>
+      <td style="text-align: center">0.244</td>
+      <td style="text-align: center">-0.226</td>
+      <td style="text-align: center">-0.232</td>
+      <td style="text-align: center">-0.189</td>
+      <td style="text-align: center">-0.095</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">青海</td>
+      <td style="text-align: center">0.114</td>
+      <td style="text-align: center">0.117</td>
+      <td style="text-align: center">-0.113</td>
+      <td style="text-align: center">0.024</td>
+      <td style="text-align: center">-0.007</td>
+      <td style="text-align: center">-0.061</td>
+      <td style="text-align: center">-0.061</td>
+      <td style="text-align: center">0.033</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">宁夏</td>
+      <td style="text-align: center">-0.025</td>
+      <td style="text-align: center">0.054</td>
+      <td style="text-align: center">0.013</td>
+      <td style="text-align: center">0.042</td>
+      <td style="text-align: center">-0.006</td>
+      <td style="text-align: center">-0.037</td>
+      <td style="text-align: center">-0.010</td>
+      <td style="text-align: center">0.076</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">新疆</td>
+      <td style="text-align: center">0.029</td>
+      <td style="text-align: center">0.311</td>
+      <td style="text-align: center">-0.031</td>
+      <td style="text-align: center">-0.381</td>
+      <td style="text-align: center">0.124</td>
+      <td style="text-align: center">0.217</td>
+      <td style="text-align: center">-0.178</td>
+      <td style="text-align: center">-0.131</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>东北</strong></td>
+      <td style="text-align: center"><strong>1.801</strong></td>
+      <td style="text-align: center"><strong>2.650</strong></td>
+      <td style="text-align: center"><strong>-3.130</strong></td>
+      <td style="text-align: center"><strong>-1.266</strong></td>
+      <td style="text-align: center"><strong>-0.912</strong></td>
+      <td style="text-align: center"><strong>-1.234</strong></td>
+      <td style="text-align: center"><strong>-1.827</strong></td>
+      <td style="text-align: center"><strong>-1.144</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">辽宁</td>
+      <td style="text-align: center">1.498</td>
+      <td style="text-align: center">1.981</td>
+      <td style="text-align: center">-3.503</td>
+      <td style="text-align: center">-0.295</td>
+      <td style="text-align: center">-0.132</td>
+      <td style="text-align: center">-0.586</td>
+      <td style="text-align: center">-1.048</td>
+      <td style="text-align: center">-0.418</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">吉林</td>
+      <td style="text-align: center">-0.265</td>
+      <td style="text-align: center">0.271</td>
+      <td style="text-align: center">0.081</td>
+      <td style="text-align: center">-0.531</td>
+      <td style="text-align: center">0.108</td>
+      <td style="text-align: center">-0.199</td>
+      <td style="text-align: center">-0.199</td>
+      <td style="text-align: center">0.029</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">黑龙江</td>
+      <td style="text-align: center">0.568</td>
+      <td style="text-align: center">0.398</td>
+      <td style="text-align: center">0.292</td>
+      <td style="text-align: center">-0.441</td>
+      <td style="text-align: center">-0.888</td>
+      <td style="text-align: center">-0.449</td>
+      <td style="text-align: center">-0.580</td>
+      <td style="text-align: center">-0.756</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>平均变动</strong></td>
+      <td style="text-align: center"><strong>0.101</strong></td>
+      <td style="text-align: center"><strong>0.253</strong></td>
+      <td style="text-align: center"><strong>0.098</strong></td>
+      <td style="text-align: center"><strong>0.025</strong></td>
+      <td style="text-align: center"><strong>0.062</strong></td>
+      <td style="text-align: center"><strong>0.069</strong></td>
+      <td style="text-align: center"><strong>0.042</strong></td>
+      <td style="text-align: center"><strong>0.032</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>注：</strong> 以上单位均为%，不包括香港、澳门、台湾和海南，平均变动指各阶段省区经济份额变动的绝对值的年平均值。</p>
+
+<h2 id="图119522010年中国省区经济转移及其驱动产业">图1：1952──2010年中国省区经济转移及其驱动产业</h2>
+
+<p>图中白色区域表示经济份额下降或保持不变的省份。图内标注的数字分别代表第一产业、第二产业和第三产业；括号外数字表示主导产业，括号内数字表示次级产业。</p>
+
+<p><img src="/blog/assets/img/China-province-GDP-change/0.png" alt="China-province-GDP-change/0.png" /></p>
+
+<p><img src="/blog/assets/img/China-province-GDP-change/1.png" alt="China-province-GDP-change/1.png" /></p>
+
+<h2 id="结论与结果解释">结论与结果解释</h2>
+
+<p>新中国成立以来，中国区域经济布局总体经历了由沿海与内地相对均衡发展（1952—1966年），到沿海地区主导的非均衡发展（1980—2001年），再到东、中、西部协调发展的相对均衡格局（2001—2010年）的演变过程。从长期趋势来看，各地区经济份额的变动幅度总体呈减小趋势，区域经济格局逐渐趋于稳定。</p>
+
+<p>1966—1980年涵盖“三五”“四五”和“五五”计划时期。受“文化大革命”影响，国民经济整体发展较为缓慢，区域经济空间格局变化相对有限，各省（区、市）经济份额年均变动幅度仅为0.025%。这一时期国家经济布局的重要特征是大规模推进“三线建设”，投资和产业布局向内陆地区倾斜。20世纪70年代中后期，随着国际环境变化以及中国对外关系逐步改善，区域经济布局开始呈现由内地向沿海地区转移的趋势。因此，该阶段总体表现为东部地区经济份额上升，中部和西部地区经济份额下降，以及东北地区经济份额持续下滑。</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="wiki" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">何以硅谷：弗雷德·特曼与斯坦福研究园</title><link href="/blog/p/how-Silicon-Valley-came-to-be/" rel="alternate" type="text/html" title="何以硅谷：弗雷德·特曼与斯坦福研究园" /><published>2026-06-17T19:08:00+08:00</published><updated>2026-06-17T19:08:00+08:00</updated><id>/blog/p/how-Silicon-Valley-came-to-be</id><content type="html" xml:base="/blog/p/how-Silicon-Valley-came-to-be/"><![CDATA[<p><img src="/blog/assets/img/Silicon_valley_title.png" alt="Silicon_valley_title.png" /></p>
 
 <p>硅谷为什么是硅谷？</p>
 
@@ -796,35 +1227,4 @@ s3 =
 
 <p>最后，附上搜索引擎排序：Google » Bing » <del>Baidu</del></p>
 
-<p>最后的最后，笔者安装的windows虚拟机版本为 <code class="language-plaintext highlighter-rouge">zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.iso</code> （虽然ArcGIS非Pro版可以在win7上跑起来，虽然似乎win7对电脑性能要求更低，虽然有很多人喜欢win7，但是我的朋友，请忍住一时的冲动，相信我，还是安装win10吧）</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[前面将Ubuntu误装到笔记本硬盘的影响还在继续…]]></summary></entry><entry><title type="html">Linux版WPS修补指南</title><link href="/blog/p/small-problems-of-wps-for-linux/" rel="alternate" type="text/html" title="Linux版WPS修补指南" /><published>2025-02-07T15:33:00+08:00</published><updated>2025-02-07T15:33:00+08:00</updated><id>/blog/p/small-problems-of-wps-for-linux</id><content type="html" xml:base="/blog/p/small-problems-of-wps-for-linux/"><![CDATA[<p>自从<a href="/blog/p/install-ubuntu-on-my-laptop-mistakenly/">误把Ubuntu装进电脑硬盘</a>后，笔者开始了神奇的Linux之旅。接着不可避免要寻找office办公三件套的替代软件，笔者最先安装了LibreOffice，打开.docx文档和Word布局不一致，于是又寻找其他替代软件，然后就找到了WPS for Linux。使用WPS打开.docx文件和Word布局一致，且速度很快（比LibreOffice快一点），而且免费无广告！（使用Windows版WPS的家人们，V我50解锁全部功能免广告🤑）</p>
-
-<p>虽然Linux版WPS是Office的最佳平替，但是也会存在一些小问题。本文将列出笔者使用过程中遇到的问题，并给出解决方案（笔者的电脑是x86_64架构，系统为Ubuntu 24.04）</p>
-
-<h2 id="0x00-缺少字体">0x00 缺少字体</h2>
-
-<p>因为存在字体版权问题，所以WPS for Linux并没有附带字体文件，而Ubuntu自带的字体都是用惯了Windows的B从未听说过的开源字体。当B打开老师同学发给ta的文件时，自然会出现显示异常的情况</p>
-
-<p>解决办法详见 👉 <a href="/blog/p/first-day-of-using-ubuntu/">使用Ubuntu的第一天是装…字体？</a></p>
-
-<h2 id="0x01-导出pdf失败">0x01 导出PDF失败</h2>
-
-<p>WPS更新缓慢，PDF导出功能使用的是libtiff.so.5库（Ubuntu 24.04安装的是libtiff.so.6），因为libtiff.so.6向下兼容，所以直接加一个symbolic完事</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.6 /usr/lib/x86_64-linux-gnu/libtiff.so.5
-</code></pre></div></div>
-
-<p>参考WPS社区讨论：<a href="https://bbs.wps.cn/topic/7777" target="_blank">Linux环境下不能输出PDF</a></p>
-
-<h2 id="0x02-中文字体加粗显示异常">0x02 中文字体加粗显示异常</h2>
-
-<p>同样是WPS更不上组件库更新，解决办法是下载旧版libfreetype（应该也可以通过降低libfreetype版本解决，不过考虑到可能存在版本兼容依赖问题，且下载的文件是放在WPS自己的路径下，不会影响其他程序运行，笔者选择直接下载）</p>
-
-<p>下载地址： <code class="language-plaintext highlighter-rouge">https://packages.debian.org/bookworm/libfreetype6</code> 。如果是x86_64架构的Debian/Ubuntu系统，下载 <strong>libfreetype6_2.12.1+dfsg-5+deb12u3_amd64.deb</strong></p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir libfreetype6
-$ dpkg-deb -X libfreetype6_2.12.1+dfsg-5+deb12u3_amd64.deb libfreetype6
-$ sudo cp libfreetype6/usr/lib/x86_64-linux-gnu/libfreetype.so.6.18.3 /opt/kingsoft/wps-office/office6/
-$ sudo ln -s /opt/kingsoft/wps-office/office6/libfreetype.so.6.18.3 /opt/kingsoft/wps-office/office6/libfreetype.so.6
-</code></pre></div></div>
-
-<p>参考WPS社区讨论：<a href="https://bbs.wps.cn/topic/3137" target="_blank">WPS for Linux字体加粗问题</a></p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><category term="Ubuntu折腾小记" /><summary type="html"><![CDATA[自从误把Ubuntu装进电脑硬盘后，笔者开始了神奇的Linux之旅。接着不可避免要寻找office办公三件套的替代软件，笔者最先安装了LibreOffice，打开.docx文档和Word布局不一致，于是又寻找其他替代软件，然后就找到了WPS for Linux。使用WPS打开.docx文件和Word布局一致，且速度很快（比LibreOffice快一点），而且免费无广告！（使用Windows版WPS的家人们，V我50解锁全部功能免广告🤑）]]></summary></entry></feed>
+<p>最后的最后，笔者安装的windows虚拟机版本为 <code class="language-plaintext highlighter-rouge">zh-cn_windows_10_enterprise_ltsc_2021_x64_dvd_033b7312.iso</code> （虽然ArcGIS非Pro版可以在win7上跑起来，虽然似乎win7对电脑性能要求更低，虽然有很多人喜欢win7，但是我的朋友，请忍住一时的冲动，相信我，还是安装win10吧）</p>]]></content><author><name>wuhulamb</name><email>wuhulamb@163.com</email></author><category term="计算机" /><summary type="html"><![CDATA[前面将Ubuntu误装到笔记本硬盘的影响还在继续…]]></summary></entry></feed>
